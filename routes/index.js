@@ -1,6 +1,6 @@
 const userRoute = require('@user/routes');
 const ZakyController = require('@zaky/controllers');
-const JandaController = require('@ichsan/controller');
+const JandaController = require('@ichsan/controllers');
 module.exports = app => {
   const zakyController = new ZakyController();
   const jandaController = new JandaController();
