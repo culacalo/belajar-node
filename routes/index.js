@@ -4,6 +4,9 @@ const AndrewController = require('@andrew/controllers');
 const MarselinoController = require('@marselino/controllers');
 const JandaController = require('@ichsan/controllers');
 const FarhanController = require('@farhan/controllers');
+const fahmiController = require('@fahmi/controllers');
+
+userRoute(app);
 
 
 module.exports = (app) => {
@@ -28,8 +31,7 @@ module.exports = (app) => {
   
   app.route('/farhan')
     .get(farhanController.index);
-
-  app.route('/zaky')
-    .get(zakyController.index);
+  
+  app.route('/fahmi')
+    .get(fahmiController.index);
 };
-
