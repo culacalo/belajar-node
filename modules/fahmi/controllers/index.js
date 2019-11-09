@@ -1,13 +1,13 @@
-class ZakyController {
+class FahmiController {
   constructor() {
     this.index = this.index.bind(this);
   }
 
   async index(req, res) {
     res.send({
-      zaky: 'ganteng'
+      fahmi: 'hello programmer aceh'
     });
   }
 }
 
-module.exports = ZakyController;
+module.exports = new FahmiController();

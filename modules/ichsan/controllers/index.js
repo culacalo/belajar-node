@@ -1,13 +1,13 @@
-class ZakyController {
+class JandaController {
   constructor() {
     this.index = this.index.bind(this);
   }
 
   async index(req, res) {
     res.send({
-      zaky: 'ganteng'
+      dondO: 'kok Janda lebih menggoda?'
     });
   }
 }
 
-module.exports = ZakyController;
+module.exports = JandaController;
