@@ -53,6 +53,9 @@
     "@user": "modules/user",
     "@config": "config",
     "@zaky": "modules/zaky",
+    "@andrew": "modules/andrew",
+    "@marselino": "modules/marselino",
+    "@farhan": "modules/farhan",
     "@fahmi": "modules/fahmi"
   }
 }
