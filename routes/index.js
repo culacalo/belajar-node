@@ -6,10 +6,9 @@ const JandaController = require('@ichsan/controllers');
 const FarhanController = require('@farhan/controllers');
 const fahmiController = require('@fahmi/controllers');
 
-userRoute(app);
-
-
 module.exports = (app) => {
+  userRoute(app);
+
   const zakyController = new ZakyController();
   const andrewController = new AndrewController();
   const marselinoController = new MarselinoController();
@@ -26,12 +25,15 @@ module.exports = (app) => {
   app.route('/andrew')
 	  .get(andrewController.index);
 
-	app.route('/marselino') 
+	app.route('/marselino')
 		.get(marselinoController.index);
-  
+
   app.route('/farhan')
     .get(farhanController.index);
-  
+
   app.route('/fahmi')
     .get(fahmiController.index);
+
+  app.route('/janda')
+    .get(jandaController.index);
 };

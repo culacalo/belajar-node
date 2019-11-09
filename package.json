@@ -56,6 +56,7 @@
     "@andrew": "modules/andrew",
     "@marselino": "modules/marselino",
     "@farhan": "modules/farhan",
-    "@fahmi": "modules/fahmi"
+    "@fahmi": "modules/fahmi",
+    "@ichsan":"modules/ichsan"
   }
 }
