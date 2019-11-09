@@ -1,4 +1,4 @@
-class fahmiController {
+class FahmiController {
   constructor() {
     this.index = this.index.bind(this);
   }
@@ -10,4 +10,4 @@ class fahmiController {
   }
 }
 
-module.exports = new fahmiController();
+module.exports = new FahmiController();
