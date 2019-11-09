@@ -5,6 +5,7 @@ const MarselinoController = require('@marselino/controllers');
 const JandaController = require('@ichsan/controllers');
 const FarhanController = require('@farhan/controllers');
 const fahmiController = require('@fahmi/controllers');
+const WanController = require('@wan/controllers');
 
 module.exports = (app) => {
   userRoute(app);
@@ -14,6 +15,7 @@ module.exports = (app) => {
   const marselinoController = new MarselinoController();
   const farhanController = new FarhanController();
   const jandaController = new JandaController();
+  const wanController = new WanController();
 
   app.route('/').get((req, res) => {
     res.send('Hi Apa Aceh!');
@@ -36,4 +38,7 @@ module.exports = (app) => {
 
   app.route('/janda')
     .get(jandaController.index);
+
+  app.route('/wan')
+    .get(wanController.index);
 };
