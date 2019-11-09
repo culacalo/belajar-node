@@ -51,6 +51,7 @@
         "@root": ".",
         "@common": "modules/common",
         "@user": "modules/user",
-        "@config": "config"
+        "@config": "config",
+        "@zaky": "modules/zaky"
     }
 }
