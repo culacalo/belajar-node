@@ -1,8 +1,10 @@
 const userRoute = require('@user/routes');
 const ZakyController = require('@zaky/controllers');
+const KhairulController = require('@khairul/controllers');
 
 module.exports = (app) => {
   const zakyController = new ZakyController();
+  const khairulController = new KhairulController();
   userRoute(app);
 
   app.route('/')
@@ -12,4 +14,7 @@ module.exports = (app) => {
 
   app.route('/zaky')
     .get(zakyController.index);
+
+  app.route('/khairul')
+    .get(khairulController.index);
 };

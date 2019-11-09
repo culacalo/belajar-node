@@ -52,6 +52,7 @@
         "@common": "modules/common",
         "@user": "modules/user",
         "@config": "config",
-        "@zaky": "modules/zaky"
+        "@zaky": "modules/zaky",
+        "@khairul": "modules/khairul"
     }
 }
