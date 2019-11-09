@@ -58,6 +58,7 @@
     "@farhan": "modules/farhan",
     "@fahmi": "modules/fahmi",
     "@ichsan":"modules/ichsan",
-    "@wan": "modules/wan"
+    "@wan": "modules/wan",
+    "@khairul": "modules/khairul"
   }
 }
