@@ -1,5 +1,5 @@
 {
-    "name": "pharmapack-backend",
+    "name": "belajar-node",
     "version": "1.0.0",
     "description": "pharmapack backend",
     "main": "server.js",
@@ -8,7 +8,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/itmi-id/pharmapack-backend.git"
+        "url": "git+https://github.com/culacalo/belajar-node.git"
     },
     "keywords": [
         "nodejs",
@@ -17,9 +17,9 @@
     "author": "",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/itmi-id/pharmapack-backend/issues"
+        "url": "https://github.com/culacalo/belajar-node.git/issues"
     },
-    "homepage": "https://github.com/itmi-id/pharmapack-backend#readme",
+    "homepage": "https://github.com/culacalo/belajar-node.git#readme",
     "dependencies": {
         "amqplib": "^0.5.3",
         "body-parser": "^1.19.0",
