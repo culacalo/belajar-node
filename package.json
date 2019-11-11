@@ -57,8 +57,9 @@
     "@marselino": "modules/marselino",
     "@farhan": "modules/farhan",
     "@fahmi": "modules/fahmi",
-    "@ichsan":"modules/ichsan",
+    "@ichsan": "modules/ichsan",
     "@wan": "modules/wan",
-    "@khairul": "modules/khairul"
+    "@khairul": "modules/khairul",
+    "@aulianza": "modules/aulianza"
   }
 }
