@@ -7,6 +7,7 @@ const FarhanController = require('@farhan/controllers');
 const fahmiController = require('@fahmi/controllers');
 const WanController = require('@wan/controllers');
 const KhairulController = require('@khairul/controllers');
+const AliController = require('@ali/controllers');
 
 module.exports = (app) => {
   const zakyController = new ZakyController();
@@ -16,6 +17,7 @@ module.exports = (app) => {
   const jandaController = new JandaController();
   const wanController = new WanController();
   const khairulController = new KhairulController();
+  const aliController = new AliController();
 
   userRoute(app);
 
@@ -46,4 +48,7 @@ module.exports = (app) => {
 
   app.route('/khairul')
     .get(khairulController.index);
+  
+  app.route('/ali')
+    .get(aliController.b);
 };
