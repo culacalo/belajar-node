@@ -60,6 +60,7 @@
     "@ichsan": "modules/ichsan",
     "@wan": "modules/wan",
     "@khairul": "modules/khairul",
+    "@ali": "modules/ali",
     "@aulianza": "modules/aulianza"
   }
 }
