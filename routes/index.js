@@ -8,6 +8,7 @@ const fahmiController = require('@fahmi/controllers');
 const WanController = require('@wan/controllers');
 const KhairulController = require('@khairul/controllers');
 const AliController = require('@ali/controllers');
+const AulianzaController = require('@aulianza/controllers');
 
 module.exports = (app) => {
   const zakyController = new ZakyController();
@@ -18,6 +19,7 @@ module.exports = (app) => {
   const wanController = new WanController();
   const khairulController = new KhairulController();
   const aliController = new AliController();
+  const aulianzaController = new AulianzaController();
 
   userRoute(app);
 
@@ -50,5 +52,8 @@ module.exports = (app) => {
     .get(khairulController.index);
   
   app.route('/ali')
-    .get(aliController.b);
+    .get(aliController.index);
+
+  app.route('/aulianza')
+    .get(aulianzaController.index);
 };
