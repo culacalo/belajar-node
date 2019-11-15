@@ -23,6 +23,7 @@
 - Learn and hack it!
 
 ## Usage With Docker
+- Make sure you have installed docker and docker-compose on your machine
 - Clone/download this repo.
 - Enter the directory.
 
