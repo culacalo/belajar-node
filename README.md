@@ -32,3 +32,7 @@
 - Run the app with docker-compose
 
     `sudo docker-compose up`
+
+- Hit [http://localhost:3000](http://localhost:3000) on your favorite browser to open the apps.
+- use [http://localhost:4000](http://localhost:4000) to open adminer and manage database.
+- use PORT `33060` to connect mysql database from your mysql client.
