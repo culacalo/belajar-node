@@ -35,7 +35,7 @@ services:
       - DB_USER=root
       - DB_PASS=12345678
       - DB_PORT=3306
-      - DB_PORT=belajar-node
+      - DB_DB=belajar-node
     depends_on:
       - db
     networks:
