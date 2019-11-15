@@ -24,7 +24,7 @@ module.exports = (app) => {
   userRoute(app);
 
   app.route('/').get((req, res) => {
-    res.send('Hi Apa Aceh!');
+    res.send('Hi Apa Aceh, pastikan lagi!');
   });
 
   app.route('/zaky')
