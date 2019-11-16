@@ -20,6 +20,7 @@ module.exports = app => {
   const khairulController = new KhairulController();
   const aliController = new AliController();
   const aulianzaController = new AulianzaController();
+  const khaiController = new KhaiController();
 
   userRoute(app);
 
@@ -57,6 +58,10 @@ module.exports = app => {
   app.route("/ali").get(aliController.index);
   app.route("/ali/:id").get(aliController.getById);
 
+  app.route('/khai').get(khaiController.index);
+  app.route('/khai/:id').get(khaiController.getById);
+  
   app.route("/aulianza").get(aulianzaController.index);
   app.route("/aulianza/:id").get(aulianzaController.getById);
+
 };

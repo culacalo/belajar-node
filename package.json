@@ -64,6 +64,7 @@
     "@wan": "modules/wan",
     "@khairul": "modules/khairul",
     "@ali": "modules/ali",
-    "@aulianza": "modules/aulianza"
+    "@aulianza": "modules/aulianza",
+    "@khai": "modules/khai"
   }
 }
