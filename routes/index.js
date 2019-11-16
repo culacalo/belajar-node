@@ -9,6 +9,7 @@ const WanController = require("@wan/controllers");
 const KhairulController = require("@khairul/controllers");
 const AliController = require("@ali/controllers");
 const AulianzaController = require("@aulianza/controllers");
+const KhaiController = require("@khai/controllers");
 
 module.exports = app => {
   const zakyController = new ZakyController();
@@ -40,7 +41,7 @@ module.exports = app => {
     .get(farhanController.getByID);
 
   app.route("/marselino").get(marselinoController.index);
-  
+
   app.route('/fahmi')
     .get(fahmiController.index);
   app.route('/fahmi/:id')
@@ -60,7 +61,7 @@ module.exports = app => {
 
   app.route('/khai').get(khaiController.index);
   app.route('/khai/:id').get(khaiController.getById);
-  
+
   app.route("/aulianza").get(aulianzaController.index);
   app.route("/aulianza/:id").get(aulianzaController.getById);
 
