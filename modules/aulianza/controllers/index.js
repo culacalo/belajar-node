@@ -1,15 +1,21 @@
+const AulianzaService = require('@aulianza/services');
+
 class AulianzaController {
     constructor() {
-        this.index = this.index.bind(this)
+        this.aulianzaService = new AulianzaService();
+        this.index = this.index.bind(this);
+        this.getById = this.getById.bind(this);
     }
 
-    index(req, res) {
+    async index(req, res) {
         res.send({
-            name: "aulianza",
-            age: "21",
-            education: {
-                sd: "sdn 16"
-            }
+            data: await this.aulianzaService.index()
+        })
+    }
+
+    async getById(req, res) {
+        res.send({
+            data: await this.aulianzaService.getById(req.params.id)
         })
     }
 
