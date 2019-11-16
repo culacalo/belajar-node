@@ -44,6 +44,8 @@ module.exports = (app) => {
 
   app.route('/fahmi')
     .get(fahmiController.index);
+  app.route('/fahmi/:id')
+    .get(fahmiController.getById)
 
   app.route('/janda')
     .get(jandaController.index);
