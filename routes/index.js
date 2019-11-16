@@ -29,6 +29,7 @@ module.exports = (app) => {
 
   app.route('/zaky')
     .get(zakyController.index);
+
   app.route('/zaky/:id')
     .get(zakyController.getById);
 
@@ -58,4 +59,6 @@ module.exports = (app) => {
 
   app.route('/aulianza')
     .get(aulianzaController.index);
+  app.route('/aulianza/:id')
+    .get(aulianzaController.getById);
 };
