@@ -1,39 +1,42 @@
-const mysql = require('promise-mysql')
+const mysql = require('promise-mysql');
+// // const Logger = require('@lib-logger/internal.logger');
+
 const config = require('@config').mysql;
 
-const createConnection = async(database) => {
-    let configuration = {
-        host: eval(`config.database.${database}.host`),
-        user: eval(`config.database.${database}.user`),
-        password: eval(`config.database.${database}.password`),
-        port: eval(`config.database.${database}.port`),
-        database: eval(`config.database.${database}.db`)
-    }
+class DBConnection {
+  constructor() {
+    this.connection = null;
+    this.createConnection = this.createConnection.bind(this);
+    this.closeConnection = this.closeConnection.bind(this);
+  }
+
+  async createConnection(database = 'default') {
+    const configuration = {
+      host: config.database[database].host,
+      user: config.database[database].user,
+      password: config.database[database].password,
+      port: config.database[database].port,
+      database: config.database[database].db,
+    };
 
     try {
-        let pool;
-        let con;
-
-        if (pool) con = pool.getConnection()
-        else {
-            pool = await mysql.createPool(configuration);
-        }
-
-        return pool
+      const pool = await mysql.createPool(configuration);
+      return pool;
     } catch (ex) {
-        throw ex;
+      // Logger().error(`Error connection : ${ex.message}`);
+      throw ex;
     }
-}
+  }
 
-const closeConnection = (connection) => {
+  async closeConnection(connection) {
     try {
-        connection.destroy()
+      await connection.end();
     } catch (ex) {
-        throw ex;
+      // Logger().error(ex.message);
+      throw ex;
     }
+  }
 }
 
-module.exports = {
-    createConnection: createConnection,
-    closeConnection: closeConnection
-}
+
+module.exports = DBConnection;

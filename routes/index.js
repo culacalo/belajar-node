@@ -24,11 +24,13 @@ module.exports = (app) => {
   userRoute(app);
 
   app.route('/').get((req, res) => {
-    res.send('Hi Apa Aceh, pastikan lagi!');
+    res.send('Hi Apa Aceh, pastikan lagi asdf!');
   });
 
   app.route('/zaky')
     .get(zakyController.index);
+  app.route('/zaky/:id')
+    .get(zakyController.getById);
 
   app.route('/andrew')
 	  .get(andrewController.index);
