@@ -40,6 +40,8 @@ module.exports = (app) => {
 
   app.route('/farhan')
     .get(farhanController.index);
+  app.route('/farhan/:id')
+    .get(farhanController.getById);
 
   app.route('/fahmi')
     .get(fahmiController.index);
