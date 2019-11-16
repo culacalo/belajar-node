@@ -11,8 +11,7 @@ module.exports = {
           },
           name: Sequelize.STRING(225),
           age: Sequelize.INTEGER(3)
-        }
-      );
+        });
   },
 
   down: (queryInterface, Sequelize) => {
