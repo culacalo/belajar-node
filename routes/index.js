@@ -33,10 +33,13 @@ module.exports = app => {
 
   app.route("/andrew").get(andrewController.index);
 
+  app.route('/farhan')
+    .get(farhanController.index);
+  app.route('/farhan/:id')
+    .get(farhanController.getByID);
+
   app.route("/marselino").get(marselinoController.index);
-
-  app.route("/farhan").get(farhanController.index);
-
+  
   app.route('/fahmi')
     .get(fahmiController.index);
   app.route('/fahmi/:id')
