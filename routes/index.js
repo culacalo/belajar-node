@@ -28,6 +28,7 @@ module.exports = app => {
   });
 
   app.route("/zaky").get(zakyController.index);
+
   app.route("/zaky/:id").get(zakyController.getById);
 
   app.route("/andrew").get(andrewController.index);
@@ -42,10 +43,13 @@ module.exports = app => {
   app.route("/ichsan/:id").get(ichsanController.getById);
 
   app.route("/wan").get(wanController.index);
+  app.route("/wan/:id").get(wanController.getUserByID);
 
   app.route("/khairul").get(khairulController.index);
 
   app.route("/ali").get(aliController.index);
+  app.route("/ali/:id").get(aliController.getById);
 
   app.route("/aulianza").get(aulianzaController.index);
+  app.route("/aulianza/:id").get(aulianzaController.getById);
 };
