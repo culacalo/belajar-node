@@ -49,10 +49,12 @@ module.exports = (app) => {
 
   app.route('/wan')
     .get(wanController.index);
+  app.route('/wan/:id')
+    .get(wanController.getUserByID)
 
   app.route('/khairul')
     .get(khairulController.index);
-  
+
   app.route('/ali')
     .get(aliController.index);
 
