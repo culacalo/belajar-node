@@ -55,6 +55,8 @@ module.exports = (app) => {
   
   app.route('/ali')
     .get(aliController.index);
+  app.route('/ali/:id')
+    .get(aliController.getById);
 
   app.route('/aulianza')
     .get(aulianzaController.index);
