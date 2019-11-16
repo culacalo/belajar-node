@@ -40,7 +40,10 @@ module.exports = app => {
 
   app.route("/marselino").get(marselinoController.index);
   
-  app.route("/fahmi").get(fahmiController.index);
+  app.route('/fahmi')
+    .get(fahmiController.index);
+  app.route('/fahmi/:id')
+    .get(fahmiController.getById)
 
   app.route("/ichsan").get(ichsanController.index);
   app.route("/ichsan/:id").get(ichsanController.getById);
