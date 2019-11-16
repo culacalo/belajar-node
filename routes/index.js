@@ -52,6 +52,10 @@ module.exports = (app) => {
 
   app.route('/khairul')
     .get(khairulController.index);
+
+  app.route('/khairul/:id')
+    .get(khairulController.getById);
+
   
   app.route('/ali')
     .get(aliController.index);
