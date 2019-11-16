@@ -1,21 +1,21 @@
-const userRoute = require('@user/routes');
-const ZakyController = require('@zaky/controllers');
-const AndrewController = require('@andrew/controllers');
-const MarselinoController = require('@marselino/controllers');
-const JandaController = require('@ichsan/controllers');
-const FarhanController = require('@farhan/controllers');
-const fahmiController = require('@fahmi/controllers');
-const WanController = require('@wan/controllers');
-const KhairulController = require('@khairul/controllers');
-const AliController = require('@ali/controllers');
-const AulianzaController = require('@aulianza/controllers');
+const userRoute = require("@user/routes");
+const ZakyController = require("@zaky/controllers");
+const AndrewController = require("@andrew/controllers");
+const MarselinoController = require("@marselino/controllers");
+const IchsanController = require("@ichsan/controllers");
+const FarhanController = require("@farhan/controllers");
+const fahmiController = require("@fahmi/controllers");
+const WanController = require("@wan/controllers");
+const KhairulController = require("@khairul/controllers");
+const AliController = require("@ali/controllers");
+const AulianzaController = require("@aulianza/controllers");
 
-module.exports = (app) => {
+module.exports = app => {
   const zakyController = new ZakyController();
   const andrewController = new AndrewController();
   const marselinoController = new MarselinoController();
   const farhanController = new FarhanController();
-  const jandaController = new JandaController();
+  const ichsanController = new IchsanController();
   const wanController = new WanController();
   const khairulController = new KhairulController();
   const aliController = new AliController();
@@ -23,39 +23,29 @@ module.exports = (app) => {
 
   userRoute(app);
 
-  app.route('/').get((req, res) => {
-    res.send('Hi Apa Aceh, pastikan lagi asdf!');
+  app.route("/").get((req, res) => {
+    res.send("Hi Apa Aceh, pastikan lagi asdf!");
   });
 
-  app.route('/zaky')
-    .get(zakyController.index);
-  app.route('/zaky/:id')
-    .get(zakyController.getById);
+  app.route("/zaky").get(zakyController.index);
+  app.route("/zaky/:id").get(zakyController.getById);
 
-  app.route('/andrew')
-	  .get(andrewController.index);
+  app.route("/andrew").get(andrewController.index);
 
-	app.route('/marselino')
-		.get(marselinoController.index);
+  app.route("/marselino").get(marselinoController.index);
 
-  app.route('/farhan')
-    .get(farhanController.index);
+  app.route("/farhan").get(farhanController.index);
 
-  app.route('/fahmi')
-    .get(fahmiController.index);
+  app.route("/fahmi").get(fahmiController.index);
 
-  app.route('/janda')
-    .get(jandaController.index);
+  app.route("/ichsan").get(ichsanController.index);
+  app.route("/ichsan/:id").get(ichsanController.getById);
 
-  app.route('/wan')
-    .get(wanController.index);
+  app.route("/wan").get(wanController.index);
 
-  app.route('/khairul')
-    .get(khairulController.index);
-  
-  app.route('/ali')
-    .get(aliController.index);
+  app.route("/khairul").get(khairulController.index);
 
-  app.route('/aulianza')
-    .get(aulianzaController.index);
+  app.route("/ali").get(aliController.index);
+
+  app.route("/aulianza").get(aulianzaController.index);
 };
