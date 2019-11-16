@@ -29,6 +29,7 @@ module.exports = (app) => {
 
   app.route('/zaky')
     .get(zakyController.index);
+
   app.route('/zaky/:id')
     .get(zakyController.getById);
 
@@ -49,10 +50,12 @@ module.exports = (app) => {
 
   app.route('/wan')
     .get(wanController.index);
+  app.route('/wan/:id')
+    .get(wanController.getUserByID)
 
   app.route('/khairul')
     .get(khairulController.index);
-  
+
   app.route('/ali')
     .get(aliController.index);
   app.route('/ali/:id')
@@ -60,4 +63,6 @@ module.exports = (app) => {
 
   app.route('/aulianza')
     .get(aulianzaController.index);
+  app.route('/aulianza/:id')
+    .get(aulianzaController.getById);
 };
