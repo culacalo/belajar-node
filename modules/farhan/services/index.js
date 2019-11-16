@@ -13,7 +13,7 @@ class FarhanService{
         const data = await this.farhanModel.getByID(id)
 
         if(data.length > 0){
-            return 0
+            return data
         }else{
             return "data kosong"
         }
