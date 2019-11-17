@@ -34,6 +34,7 @@ module.exports = app => {
   app.route("/zaky/:id").get(zakyController.getById);
 
   app.route("/andrew").get(andrewController.index);
+  app.route("/andrew/:id").get(andrewController.getById);
 
   app.route('/farhan')
     .get(farhanController.index);
