@@ -2,7 +2,7 @@ const IchsanModel = require("@ichsan/models");
 
 class IchsanService {
   constructor() {
-    this.ichsanModel = new this.IchsanModel();
+    this.ichsanModel = new IchsanModel();
   }
 
   async index() {
