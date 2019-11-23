@@ -64,8 +64,13 @@ module.exports = app => {
   app.route("/ali").get(aliController.index);
   app.route("/ali/:id").get(aliController.getById);
 
-  app.route('/khai').get(khaiController.index);
-  app.route('/khai/:id').get(khaiController.getById);
+  app.route('/khai')
+  .get(khaiController.index)
+  .post(khaiController.insert);
+  app.route('/khai/:id')
+  .get(khaiController.getById)
+  .put(khaiController.update)
+  .delete(khaiController.delete);
 
   app.route("/aulianza").get(aulianzaController.index);
   app.route("/aulianza/:id").get(aulianzaController.getById);
