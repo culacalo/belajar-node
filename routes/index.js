@@ -84,7 +84,19 @@ module.exports = app => {
   app.route('/khai').get(khaiController.index);
   app.route('/khai/:id').get(khaiController.getById);
 
-  app.route("/aulianza").get(aulianzaController.index);
-  app.route("/aulianza/:id").get(aulianzaController.getById);
+  // initial routing for aulianza params 
+  app.route("/aulianza")
+    // get http method for get data
+    .get(aulianzaController.index)
+    // post http method for insert data
+    .post(aulianzaController.insert);
+  // initial routing for aulianza params with id 
+  app.route("/aulianza/:id")
+    // get http method for get data
+    .get(aulianzaController.getById)
+    // put http method for update data
+    .put(aulianzaController.update)
+    // delete http method for delete data 
+    .delete(aulianzaController.delete);
 
 };
