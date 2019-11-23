@@ -9,7 +9,7 @@ class AulianzaModel {
     // index function 
     async index(){
         // intial query from database 
-        const query = `SELECT * FROM ${this.table}`;
+        const query = `SELECT * FROM ${this.table} WHERE is_deleted = 0`;
         // return query 
         return await this.dbService.query(query);
     }
