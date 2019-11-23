@@ -29,9 +29,13 @@ module.exports = app => {
     res.send("Hi Apa Aceh, pastikan lagi asdf!");
   });
 
-  app.route("/zaky").get(zakyController.index);
-
-  app.route("/zaky/:id").get(zakyController.getById);
+  app.route("/zaky")
+    .get(zakyController.index)
+    .post(zakyController.insert);
+  app.route("/zaky/:id")
+    .get(zakyController.getById)
+    .put(zakyController.update)
+    .delete(zakyController.delete);
 
   app.route("/andrew").get(andrewController.index);
   app.route("/andrew/:id").get(andrewController.getById);
