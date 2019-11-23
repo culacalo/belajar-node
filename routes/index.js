@@ -48,9 +48,12 @@ module.exports = app => {
   app.route("/marselino").get(marselinoController.index);
 
   app.route('/fahmi')
-    .get(fahmiController.index);
+    .get(fahmiController.index)
+    .post(fahmiController.insert);
   app.route('/fahmi/:id')
     .get(fahmiController.getById)
+    .put(fahmiController.update)
+    .delete(fahmiController.delete)
 
   app.route("/ichsan").get(ichsanController.index);
   app.route("/ichsan/:id").get(ichsanController.getById);
@@ -58,11 +61,22 @@ module.exports = app => {
   app.route("/wan").get(wanController.index);
   app.route("/wan/:id").get(wanController.getUserByID);
 
-  app.route('/khairul').get(khairulController.index);
-  app.route('/khairul/:id').get(khairulController.getById);
+  app.route('/khairul')
+    .get(khairulController.index)
+    .post(khairulController.insert);
+  
+  app.route('/khairul/:id')
+    .get(khairulController.getById)
+    .put(khairulController.update)
+    .delete(khairulController.delete);
 
-  app.route("/ali").get(aliController.index);
-  app.route("/ali/:id").get(aliController.getById);
+  app.route("/ali")
+    .get(aliController.index)
+    .post(aliController.createUser);
+  app.route("/ali/:id")
+    .get(aliController.getById)
+    .put(aliController.updateUser)
+    .delete(aliController.deleteUser);
 
   app.route('/khai').get(khaiController.index);
   app.route('/khai/:id').get(khaiController.getById);

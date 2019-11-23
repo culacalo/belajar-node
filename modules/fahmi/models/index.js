@@ -2,19 +2,32 @@ const DBService = require('@common/services/db.common.service.js');
 
 class FahmiModels{
     constructor(){
+        this.table = 'fahmi';
         this.dbService = new DBService();
     }
 
     async index(){
-        const query = 'select * from fahmi';
+        const query = 'select * from fahmi where is_deleted=0';
         const data = await this.dbService.query(query);
         return data;
     }
 
     async getById(id){
-        const query = "select * from fahmi where id=?"
+        const query = "select * from fahmi where id=? and is_deleted=0"
         const data = await this.dbService.query(query, id);
         return data
+    }
+
+    async insert(data){
+        const query = `insert into ${this.table} set ?`;
+        const result = await this.dbService.query(query, data);
+        return result;
+    }
+
+    async update(userId, userData){
+        const query = `UPDATE ${this.table} SET ? WHERE id=?`
+        const result = await this.dbService.query(query, [userData, userId]);
+        return result;
     }
 }
 
