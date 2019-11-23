@@ -36,9 +36,6 @@ class KhairulController {
     const userId = req.params.id;
     const userData = req.body;
 
-    console.log(req);
-    
-
     const { status, data, message } = await this.khairulService.update(userId, userData);
 
     res.status(status);
