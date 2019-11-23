@@ -41,16 +41,22 @@ module.exports = app => {
   app.route("/andrew/:id").get(andrewController.getById);
 
   app.route('/farhan')
-    .get(farhanController.index);
+    .get(farhanController.index)
+    .post(farhanController.insert);
   app.route('/farhan/:id')
-    .get(farhanController.getByID);
+    .get(farhanController.getByID)
+    .put(farhanController.update)
+    .delete(farhanController.delete);
 
   app.route("/marselino").get(marselinoController.index);
 
   app.route('/fahmi')
-    .get(fahmiController.index);
+    .get(fahmiController.index)
+    .post(fahmiController.insert);
   app.route('/fahmi/:id')
     .get(fahmiController.getById)
+    .put(fahmiController.update)
+    .delete(fahmiController.delete)
 
   app.route("/ichsan").get(ichsanController.index);
   app.route("/ichsan/:id").get(ichsanController.getById);
@@ -58,11 +64,22 @@ module.exports = app => {
   app.route("/wan").get(wanController.index);
   app.route("/wan/:id").get(wanController.getUserByID);
 
-  app.route('/khairul').get(khairulController.index);
-  app.route('/khairul/:id').get(khairulController.getById);
+  app.route('/khairul')
+    .get(khairulController.index)
+    .post(khairulController.insert);
+  
+  app.route('/khairul/:id')
+    .get(khairulController.getById)
+    .put(khairulController.update)
+    .delete(khairulController.delete);
 
-  app.route("/ali").get(aliController.index);
-  app.route("/ali/:id").get(aliController.getById);
+  app.route("/ali")
+    .get(aliController.index)
+    .post(aliController.createUser);
+  app.route("/ali/:id")
+    .get(aliController.getById)
+    .put(aliController.updateUser)
+    .delete(aliController.deleteUser);
 
   app.route('/khai')
   .get(khaiController.index)
@@ -72,7 +89,19 @@ module.exports = app => {
   .put(khaiController.update)
   .delete(khaiController.delete);
 
-  app.route("/aulianza").get(aulianzaController.index);
-  app.route("/aulianza/:id").get(aulianzaController.getById);
+  // initial routing for aulianza params 
+  app.route("/aulianza")
+    // get http method for get data
+    .get(aulianzaController.index)
+    // post http method for insert data
+    .post(aulianzaController.insert);
+  // initial routing for aulianza params with id 
+  app.route("/aulianza/:id")
+    // get http method for get data
+    .get(aulianzaController.getById)
+    // put http method for update data
+    .put(aulianzaController.update)
+    // delete http method for delete data 
+    .delete(aulianzaController.delete);
 
 };
