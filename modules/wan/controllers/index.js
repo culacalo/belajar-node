@@ -5,6 +5,9 @@ class WanController {
         this.wanService = new WanService();
         this.index = this.index.bind(this);
         this.getUserByID = this.getUserByID.bind(this);
+        this.create = this.create.bind(this);
+        this.update = this.update.bind(this);
+        this.delete = this.delete.bind(this);
     }
 
     async index(req, res) {
@@ -17,6 +20,59 @@ class WanController {
         res.json({
             data: await this.wanService.getUserByID(req.params.id)
         })
+    }
+
+    async create(req, res) {
+        const response = await this.wanService.create(req.body);
+
+        if (response.status !== 200) {
+            res.status(500);
+            res.send({
+                message: "Internal Server Error"
+            });
+        }
+
+        res.status(200);
+        res.send({
+            data: response
+        });
+    }
+
+    async update(req, res) {
+        const id = req.params.id;
+        const userData = req.body;
+
+        const response = await this.wanService.update(id, userData);
+
+        res.status(response.status);
+
+        if (response.status === 200) {
+            res.send({
+                data: response.data
+            });
+        }
+
+        res.send({
+            message: response.message
+        });
+    }
+
+    async delete(req, res) {
+        const id = req.params;
+
+        const response = await this.wanService.delete(id);
+
+        res.status(response.status);
+
+        if (response.status === 200) {
+            res.send({
+                data: response.data
+            });
+        }
+
+        res.send({
+            message: response.message
+        });
     }
 }
 
