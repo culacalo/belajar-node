@@ -98,8 +98,13 @@ module.exports = app => {
     .put(aliController.updateUser)
     .delete(aliController.deleteUser);
 
-  app.route("/khai").get(khaiController.index);
-  app.route("/khai/:id").get(khaiController.getById);
+  app.route('/khai')
+  .get(khaiController.index)
+  .post(khaiController.insert);
+  app.route('/khai/:id')
+  .get(khaiController.getById)
+  .put(khaiController.update)
+  .delete(khaiController.delete);
 
   // initial routing for aulianza params
   app
