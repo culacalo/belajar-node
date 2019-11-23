@@ -67,8 +67,13 @@ module.exports = app => {
     .put(khairulController.update)
     .delete(khairulController.delete);
 
-  app.route("/ali").get(aliController.index);
-  app.route("/ali/:id").get(aliController.getById);
+  app.route("/ali")
+    .get(aliController.index)
+    .post(aliController.createUser);
+  app.route("/ali/:id")
+    .get(aliController.getById)
+    .put(aliController.updateUser)
+    .delete(aliController.deleteUser);
 
   app.route('/khai').get(khaiController.index);
   app.route('/khai/:id').get(khaiController.getById);
