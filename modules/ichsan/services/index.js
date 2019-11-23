@@ -6,7 +6,7 @@ class IchsanService {
   }
 
   async index() {
-    return await this.IchsanModel.index();
+    return await this.ichsanModel.index();
   }
 
   async getById(id) {
