@@ -2,18 +2,32 @@ const DBService = require('@common/services/db.common.service.js')
 
 class FarhanModel{
     constructor(){
+        this.table = 'farhan'
         this.dbService = new DBService()
-
     }
 
     async index(){
-        const query = `select * from farhan`;
+        const query = `SELECT * FROM ${this.table} WHERE is_deleted=0`;
         return await this.dbService.query(query)
     }
 
     async getByID(id){
-        const query = `select * from farhan where id=?`
+        const query = `SELECT * FROM ${this.table} WHERE id=?`
         return await this.dbService.query(query, id)
+    }
+
+    async insert(data){
+        const query = `INSERT INTO ${this.table} set ?`;
+        const result = await this.dbService.query(query, data)
+        return result;
+    }
+
+    async update(userId, data){
+        const query = `UPDATE ${this.table}
+            SET ?
+            WHERE id=?`
+        const result = await this.dbService.query(query, [data, userId]);
+        return result;
     }
 }
 
