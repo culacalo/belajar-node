@@ -29,10 +29,12 @@ module.exports = app => {
     res.send("Hi Apa Aceh, pastikan lagi asdf!");
   });
 
-  app.route("/zaky")
+  app
+    .route("/zaky")
     .get(zakyController.index)
     .post(zakyController.insert);
-  app.route("/zaky/:id")
+  app
+    .route("/zaky/:id")
     .get(zakyController.getById)
     .put(zakyController.update)
     .delete(zakyController.delete);
@@ -40,26 +42,37 @@ module.exports = app => {
   app.route("/andrew").get(andrewController.index);
   app.route("/andrew/:id").get(andrewController.getById);
 
-  app.route('/farhan')
+  app
+    .route("/farhan")
     .get(farhanController.index)
     .post(farhanController.insert);
-  app.route('/farhan/:id')
+  app
+    .route("/farhan/:id")
     .get(farhanController.getByID)
     .put(farhanController.update)
     .delete(farhanController.delete);
 
   app.route("/marselino").get(marselinoController.index);
 
-  app.route('/fahmi')
+  app
+    .route("/fahmi")
     .get(fahmiController.index)
     .post(fahmiController.insert);
-  app.route('/fahmi/:id')
+  app
+    .route("/fahmi/:id")
     .get(fahmiController.getById)
     .put(fahmiController.update)
-    .delete(fahmiController.delete)
+    .delete(fahmiController.delete);
 
-  app.route("/ichsan").get(ichsanController.index);
-  app.route("/ichsan/:id").get(ichsanController.getById);
+  app
+    .route("/ichsan")
+    .get(ichsanController.index)
+    .post(ichsanController.insert);
+  app
+    .route("/ichsan/:id")
+    .get(ichsanController.getById)
+    .put(ichsanController.update)
+    .delete(ichsanController.delete);
 
   app.route("/wan")
     .get(wanController.index)
@@ -69,39 +82,49 @@ module.exports = app => {
     .put(wanController.update)
     .delete(wanController.delete);
 
-  app.route('/khairul')
+  app
+    .route("/khairul")
     .get(khairulController.index)
     .post(khairulController.insert);
-  
-  app.route('/khairul/:id')
+
+  app
+    .route("/khairul/:id")
     .get(khairulController.getById)
     .put(khairulController.update)
     .delete(khairulController.delete);
 
-  app.route("/ali")
+  app
+    .route("/ali")
     .get(aliController.index)
     .post(aliController.createUser);
-  app.route("/ali/:id")
+  app
+    .route("/ali/:id")
     .get(aliController.getById)
     .put(aliController.updateUser)
     .delete(aliController.deleteUser);
 
-  app.route('/khai').get(khaiController.index);
-  app.route('/khai/:id').get(khaiController.getById);
+  app.route('/khai')
+  .get(khaiController.index)
+  .post(khaiController.insert);
+  app.route('/khai/:id')
+  .get(khaiController.getById)
+  .put(khaiController.update)
+  .delete(khaiController.delete);
 
-  // initial routing for aulianza params 
-  app.route("/aulianza")
+  // initial routing for aulianza params
+  app
+    .route("/aulianza")
     // get http method for get data
     .get(aulianzaController.index)
     // post http method for insert data
     .post(aulianzaController.insert);
-  // initial routing for aulianza params with id 
-  app.route("/aulianza/:id")
+  // initial routing for aulianza params with id
+  app
+    .route("/aulianza/:id")
     // get http method for get data
     .get(aulianzaController.getById)
     // put http method for update data
     .put(aulianzaController.update)
-    // delete http method for delete data 
+    // delete http method for delete data
     .delete(aulianzaController.delete);
-
 };
