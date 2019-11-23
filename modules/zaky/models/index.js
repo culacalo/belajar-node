@@ -7,7 +7,7 @@ class ZakyModel{
   }
 
   async index(){
-    const query = `select * from ${this.table}`;
+    const query = `SELECT * FROM ${this.table} WHERE is_deleted=0`;
     return await this.dbService.query(query);
   }
 
