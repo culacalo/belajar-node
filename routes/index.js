@@ -74,8 +74,13 @@ module.exports = app => {
     .put(ichsanController.update)
     .delete(ichsanController.delete);
 
-  app.route("/wan").get(wanController.index);
-  app.route("/wan/:id").get(wanController.getUserByID);
+  app.route("/wan")
+    .get(wanController.index)
+    .post(wanController.create);
+  app.route("/wan/:id")
+    .get(wanController.getUserByID)
+    .put(wanController.update)
+    .delete(wanController.delete);
 
   app
     .route("/khairul")
