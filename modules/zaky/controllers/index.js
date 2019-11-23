@@ -31,7 +31,6 @@ class ZakyController {
         message: 'Internal Server Error'
       })
     }
-
     res.status(200)
     res.send({
       data: saveUser

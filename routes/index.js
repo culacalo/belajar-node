@@ -37,8 +37,14 @@ module.exports = app => {
     .put(zakyController.update)
     .delete(zakyController.delete);
 
-  app.route("/andrew").get(andrewController.index);
-  app.route("/andrew/:id").get(andrewController.getById);
+  app.route("/andrew")
+  .get(andrewController.index)
+  .post(andrewController.insert);
+
+  app.route("/andrew/:id")
+  .get(andrewController.getById)
+  .put(andrewController.update)
+  .delete(andrewController.delete);
 
   app.route('/farhan')
     .get(farhanController.index);
