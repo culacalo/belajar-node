@@ -48,9 +48,12 @@ module.exports = app => {
   app.route("/marselino").get(marselinoController.index);
 
   app.route('/fahmi')
-    .get(fahmiController.index);
+    .get(fahmiController.index)
+    .post(fahmiController.insert);
   app.route('/fahmi/:id')
     .get(fahmiController.getById)
+    .put(fahmiController.update)
+    .delete(fahmiController.delete)
 
   app.route("/ichsan").get(ichsanController.index);
   app.route("/ichsan/:id").get(ichsanController.getById);
