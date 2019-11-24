@@ -7,12 +7,12 @@ class KhairulModel{
   }
 
   async index(){
-    const query = `select * from ${this.table} where is_deleted=0`;
+    const query = `SELECT * FROM ${this.table} WHERE is_deleted=0`;
     return await this.dbService.query(query);
   }
 
   async getById(id){
-    const query = `select * from ${this.table} where id=?`;
+    const query = `SELECT * FROM ${this.table} WHERE id=?`;
     return await this.dbService.query(query, id);
   }
 
