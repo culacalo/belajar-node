@@ -33,6 +33,12 @@ class IchsanModel {
 
     return result;
   }
+
+  async getUserByName(name) {
+    const query = `SELECT id from ${this.table} where name=?`;
+
+    return await this.db.query(query, name);
+  }
 }
 
 module.exports = IchsanModel;
