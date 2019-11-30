@@ -133,7 +133,7 @@ class WanService {
     async delete(id) {
         if (!id) {
             return {
-                status: HTTPStatus.BAD_GATEWAY,
+                status: HTTPStatus.BAD_REQUEST,
                 message: "ID required"
             };
         }
