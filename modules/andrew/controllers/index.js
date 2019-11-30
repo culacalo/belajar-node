@@ -23,15 +23,15 @@ class AndrewController {
 	async insert(req, res){
 		const saveUser = await this.andrewService.insert(req.body);
 
-		if (saveUser.status !== 200){
-			res.status(500);
+		res.status(saveUser.status);
+		if(saveUser.status === 200){
 			res.send({
-				message: 'Internal Server Error'
+				data: saveUser.data
 			})
 		}
-		res.status(200)
+
 		res.send({
-			data: saveUser
+			error: saveUser.error
 		})
 	}
 
