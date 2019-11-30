@@ -1,4 +1,5 @@
 const WanService = require('@wan/services');
+const HTTPStatus = require('http-status-codes');
 
 class WanController {
     constructor() {
@@ -25,14 +26,14 @@ class WanController {
     async create(req, res) {
         const response = await this.wanService.create(req.body);
 
-        if (response.status !== 200) {
-            res.status(500);
+        res.status(response.status);
+
+        if (response.status !== HTTPStatus.OK) {
             res.send({
-                message: "Internal Server Error"
+                error: response.error
             });
         }
 
-        res.status(200);
         res.send({
             data: response
         });
@@ -46,7 +47,7 @@ class WanController {
 
         res.status(response.status);
 
-        if (response.status === 200) {
+        if (response.status === HTTPStatus.OK) {
             res.send({
                 data: response.data
             });
@@ -64,7 +65,7 @@ class WanController {
 
         res.status(response.status);
 
-        if (response.status === 200) {
+        if (response.status === HTTPStatus.OK) {
             res.send({
                 data: response.data
             });

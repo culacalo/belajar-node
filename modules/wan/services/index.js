@@ -1,8 +1,22 @@
 const WanModel = require('@wan/models');
+const Validator = require('fastest-validator');
+const HTTPStatus = require('http-status-codes');
 
 class WanService {
     constructor() {
         this.wanModel = new WanModel();
+        this.validator = new Validator();
+        this.schema = {
+            name: {
+                type: "string",
+                min: 3
+            },
+            age: {
+                type: "number",
+                positive: true,
+                integer: true,
+            }
+        };
     }
 
     async index() {
@@ -22,28 +36,71 @@ class WanService {
     async create(data) {
         const { name, age } = data;
         const userData = {
-            name,
-            age
+            name: name,
+            age: age
         };
 
-        const response = this.wanModel.create(userData);
+        const isFormValid = this.validator.validate(userData, this.schema);
+        if (isFormValid !== true) {
+            return {
+                status: HTTPStatus.BAD_REQUEST,
+                error: {
+                    error_code: 'FORM_VALIDATION',
+                    message: isFormValid
+                }
+            }
+        }
+
+        const isDataValid = await this.isDataValid(userData);
+        if (isDataValid !== true) {
+            return {
+                status: HTTPStatus.BAD_REQUEST,
+                error: {
+                    error_code: 'DATA_VALIDATION',
+                    message: isDataValid
+                }
+            }
+        }
+
+        const response = await this.wanModel.create(userData);
 
         if (response.affectedRows === 0) {
             return {
-                status: 500
+                status: HTTPStatus.INTERNAL_SERVER_ERROR,
+                error: {
+                    error_code: 'INTERNAL_SERVER_ERROR',
+                    message: 'Internal Server Error'
+                }
             };
         }
 
         return {
-            status: 200,
+            status: HTTPStatus.OK,
             data: "Data saved successfully"
         };
+    }
+
+    async isDataValid(data) {
+        const { name } = data;
+
+        const totalUserWithSameName = await this.wanModel.getUserCountByName(name);
+        if (totalUserWithSameName.length > 0) {
+            return [
+                {
+                    type: "string",
+                    field: "name",
+                    message: "Name is already exist"
+                }
+            ]
+        }
+
+        return true;
     }
 
     async update(id, userData) {
         if (!id) {
             return {
-                status: 400,
+                status: HTTPStatus.BAD_REQUEST,
                 message: "ID required"
             };
         }
@@ -60,16 +117,15 @@ class WanService {
         }
 
         const response = await this.wanModel.update(id, data);
-        console.log(response)
         if (response.affectedRows !== 1) {
             return {
-                status: 500,
+                status: HTTPStatus.INTERNAL_SERVER_ERROR,
                 message: "Internal Server Error"
             }
         }
 
         return {
-            status: 200,
+            status: HTTPStatus.OK,
             data: "Successfully updated data"
         };
     }
@@ -77,7 +133,7 @@ class WanService {
     async delete(id) {
         if (!id) {
             return {
-                status: 400,
+                status: HTTPStatus.BAD_GATEWAY,
                 message: "ID required"
             };
         }
@@ -89,13 +145,13 @@ class WanService {
         const response = await this.wanModel.update(id, data);
         if (response.affectedRows !== 1) {
             return {
-                status: 500,
+                status: HTTPStatus.INTERNAL_SERVER_ERROR,
                 message: "Internal Server Error"
             }
         }
 
         return {
-            status: 200,
+            status: HTTPStatus.OK,
             data: "Successfully deleted data"
         };
     }
