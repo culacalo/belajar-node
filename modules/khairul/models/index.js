@@ -30,6 +30,12 @@ class KhairulModel{
     const result = await this.dbService.query(query, [data, userId]);
     return result;
   }
+
+  async getUserByName(name) {
+    const query = `SELECT id FROM ${this.table} WHERE name=?`;
+    const result = await this.dbService.query(query, name);
+    return result;
+  }
 }
 
 module.exports = KhairulModel;

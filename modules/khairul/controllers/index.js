@@ -22,14 +22,18 @@ class KhairulController {
   }
 
   async insert(req, res) {
-    const { status, data, message } = await this.khairulService.insert(req.body);
+    const saveUser = await this.khairulService.insert(req.body);
 
-    res.status(status)
-    if (status !== 200) {
-      res.send({message});
+    res.status(saveUser.status)
+    if (saveUser.status === 200) {
+      res.send({ 
+        data: saveUser
+      })
     }
 
-    res.send({data});
+    res.send({
+      error: saveUser.error
+    });
   }
 
   async update(req, res) {
