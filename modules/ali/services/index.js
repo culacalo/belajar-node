@@ -1,7 +1,22 @@
 const AliModels = require('@ali/models')
+const HttpStatus = require('http-status-codes')
+const Validate = require('fastest-validator')
 class AliServices{
     constructor(){
         this.aliModels = new AliModels()
+        this.validator = new Validate()
+        this.schemaUser = {
+            name: {
+                type: 'string',
+                min: 3
+            },
+            age: {
+                type: 'number',
+                positive: true,
+                integer: true,
+                optional: true
+            }
+        }
     }
 
     async index(){
@@ -20,14 +35,40 @@ class AliServices{
             name: data.name,
             age: data.age
         }
-        const addUser = await this.aliModels.createUser(dataUser)
-        if(addUser.affectedRows>0){
+        const isFormValid = this.validator.validate(dataUser,this.schemaUser)
+        if(isFormValid!==true){
             return {
-                status: 200
+                status: HttpStatus.BAD_REQUEST,
+                error: {
+                    error_code: 'FORM_VALIDATION',
+                    message: isFormValid
+                }
+            }
+        }
+
+        const isDataValid = await this.dataValidation(dataUser)
+        if(isDataValid!==true){
+            return {
+                status: HttpStatus.BAD_REQUEST,
+                error: {
+                   error_code: 'DATA_VALIDATION',
+                   message: isDataValid
+                }
+            }
+        }
+        const addUser = await this.aliModels.createUser(dataUser)
+        if(addUser.affectedRows===0){
+            return{
+                status: HttpStatus.INTERNAL_SERVER_ERROR,
+                error: {
+                    error_code: 'INTERNAL_SERVER_ERROR',
+                    message: 'Server Error Gan'
+                }
             }
         }
         return {
-            status: 500
+            status: HttpStatus.OK,
+            message: 'data saved'
         }
     }
     async updateUser(id,data){
@@ -82,6 +123,22 @@ class AliServices{
             status: 200,
             message: `User at id:${id} has been deleted`
         }
+    }
+
+    async dataValidation(data){
+        const { user } = data
+
+        const result = await this.aliModels.getUserByName(user)
+        if(result.length>0){
+            return [
+                {
+                    type: "string",
+                    field: "name",
+                    message: "the name already exist"
+                }
+            ]
+        }
+        return true
     }
 }
 

@@ -4,11 +4,11 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
       return queryInterface.bulkInsert('AliTable', [
         {
-          name: 'Sayed Khaidir Ali',
+          name: 'ali',
           age: 24
         },
         {
-          name: 'Ihsan Error 404',
+          name: 'snf',
           age: 404
         }
       ], {});
