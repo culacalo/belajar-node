@@ -24,14 +24,14 @@ class AliController{
         const userData = req.body
         const insert = await this.aliServices.createUser(userData)
         res.status(insert.status)
+        
         if(insert.status===200){
             res.send({
                 data: insert
             })
         }
-        res.status(500)
         res.send({
-            message: 'Internal Server Error'
+            message: insert.error
         })
     }
 
