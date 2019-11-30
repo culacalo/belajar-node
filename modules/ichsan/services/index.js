@@ -1,8 +1,22 @@
 const IchsanModel = require("@ichsan/models");
-
+const Validate = require("fastest-validator");
+const HttpStatus = require("http-status-codes");
 class IchsanService {
   constructor() {
     this.ichsanModel = new IchsanModel();
+    this.validator = new Validate();
+    this.schema = {
+      name: {
+        type: "string",
+        min: 3
+      },
+      age: {
+        type: "number",
+        positive: true,
+        integer: true,
+        optional: true
+      }
+    };
   }
 
   async index() {
@@ -24,18 +38,62 @@ class IchsanService {
       age: data.age
     };
 
+    // form validation
+    const isFormValid = this.validator.validate(user, this.schema);
+    // jika form invalid
+    if (isFormValid !== true) {
+      return {
+        status: HttpStatus.BAD_REQUEST,
+        error: {
+          error_code: "FORM_VALIDATION",
+          message: isFormValid
+        }
+      };
+    }
+    const isDataValid = await this.dataValidation(user);
+    if (isDataValid !== true) {
+      return {
+        status: HttpStatus.BAD_REQUEST,
+        error: {
+          error_code: "DATA_VALIDATION",
+          message: isDataValid
+        }
+      };
+    }
+
     const userSave = await this.ichsanModel.insert(user);
 
     if (userSave.affectedRows === 0) {
       return {
-        status: 500
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: {
+          error_code: "INTERNAL_SERVER_ERROR",
+          message: "Server Error Bro"
+        }
       };
     }
 
     return {
-      status: 200,
+      status: HttpStatus.OK,
       data: "data saved"
     };
+  }
+
+  async dataValidation(data) {
+    const { name } = data;
+
+    const userWithName = await this.ichsanModel.getUserByName(name);
+    if (userWithName.length > 0) {
+      return [
+        {
+          type: "string",
+          field: "name",
+          message: "the name already exist"
+        }
+      ];
+    }
+
+    return true;
   }
 
   async update(userId, userData) {
