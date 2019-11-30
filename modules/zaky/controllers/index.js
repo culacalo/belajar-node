@@ -25,16 +25,16 @@ class ZakyController {
   async insert(req, res){
     const saveUser = await this.zakyService.insert(req.body);
 
-    if(saveUser.status !== 200){
-      res.status(500);
+    res.status(saveUser.status);
+    
+    if(saveUser.status === 200){
       res.send({
-        message: 'Internal Server Error'
+        data: saveUser
       })
     }
 
-    res.status(200)
     res.send({
-      data: saveUser
+      error: saveUser.error
     })
   }
 
