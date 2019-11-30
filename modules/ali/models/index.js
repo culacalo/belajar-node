@@ -26,7 +26,7 @@ class AliModel{
     }
 
     async getUserByName(name){
-        const query = `SELECT id FROM ${this.table} WHERE name=?`
+        const query = `SELECT id FROM ${this.table} WHERE name = ?`
         return await this.dbService.query(query,name)
     }
 }

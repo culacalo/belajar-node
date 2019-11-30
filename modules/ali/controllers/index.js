@@ -24,15 +24,17 @@ class AliController{
         const userData = req.body
         const insert = await this.aliServices.createUser(userData)
         res.status(insert.status)
+
         
-        if(insert.status===200){
+        if(insert.status!==200){
+            res.send({
+                data: insert.error
+            })
+        }else{
             res.send({
                 data: insert
             })
         }
-        res.send({
-            message: insert.error
-        })
     }
 
     async updateUser(req,res){
