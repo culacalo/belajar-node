@@ -58,7 +58,7 @@ class AliServices{
         }
         const addUser = await this.aliModels.createUser(dataUser)
         if(addUser.affectedRows===0){
-            return{
+            return {
                 status: HttpStatus.INTERNAL_SERVER_ERROR,
                 error: {
                     error_code: 'INTERNAL_SERVER_ERROR',
@@ -68,7 +68,7 @@ class AliServices{
         }
         return {
             status: HttpStatus.OK,
-            message: 'data saved'
+            data: 'data saved'
         }
     }
     async updateUser(id,data){
@@ -87,7 +87,7 @@ class AliServices{
             userData.age = data.age
         }
 
-        const update = this.aliModels.updateUser(id,userData)
+        const update = await this.aliModels.updateUser(id,userData)
 
         if(update.affectedRows!==0){
             return{
@@ -126,10 +126,9 @@ class AliServices{
     }
 
     async dataValidation(data){
-        const { user } = data
-
-        const result = await this.aliModels.getUserByName(user)
-        if(result.length>0){
+        const { name } = data
+        const result = await this.aliModels.getUserByName(name)
+        if(result.length > 0){
             return [
                 {
                     type: "string",
