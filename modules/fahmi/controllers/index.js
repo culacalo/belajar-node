@@ -25,6 +25,8 @@ class FahmiController {
   async insert(req, res){
     const saveUser = await this.fahmiServices.insert(req.body);
 
+    res.status(saveUser.status);
+    
     if(saveUser.status === 200){
       res.send({
         message:saveUser

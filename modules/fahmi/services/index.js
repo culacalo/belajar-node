@@ -39,7 +39,6 @@ class FahmiServices{
             name: data.name,
             age: data.age
         }
-
         
         const isFormValid = this.v.validate(user, this.schema)
         if (isFormValid !== true) {
@@ -67,12 +66,16 @@ class FahmiServices{
 
         if (userSave.affectedRows === 0) {
             return {
-                status:500
+                status:HttpStatus.INTERNAL_SERVER_ERROR,
+                error:{
+                    error_code: 'INTERNAL_SERVER_ERROR',
+                    message: 'Server Error Bro'
+                }
             }
         }
 
         return {
-            status:200,
+            status:HttpStatus.OK,
             data:"data saved"
         }
     }
