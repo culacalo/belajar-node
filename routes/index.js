@@ -39,14 +39,16 @@ module.exports = app => {
     .put(zakyController.update)
     .delete(zakyController.delete);
 
-  app.route("/andrew")
-  .get(andrewController.index)
-  .post(andrewController.insert);
+  app
+    .route("/andrew")
+    .get(andrewController.index)
+    .post(andrewController.insert);
 
-  app.route("/andrew/:id")
-  .get(andrewController.getById)
-  .put(andrewController.update)
-  .delete(andrewController.delete);
+  app
+    .route("/andrew/:id")
+    .get(andrewController.getById)
+    .put(andrewController.update)
+    .delete(andrewController.delete);
 
   app
     .route("/farhan")
@@ -80,10 +82,12 @@ module.exports = app => {
     .put(ichsanController.update)
     .delete(ichsanController.delete);
 
-  app.route("/wan")
+  app
+    .route("/wan")
     .get(wanController.index)
     .post(wanController.create);
-  app.route("/wan/:id")
+  app
+    .route("/wan/:id")
     .get(wanController.getUserByID)
     .put(wanController.update)
     .delete(wanController.delete);
@@ -109,13 +113,15 @@ module.exports = app => {
     .put(aliController.updateUser)
     .delete(aliController.deleteUser);
 
-  app.route('/khai')
-  .get(khaiController.index)
-  .post(khaiController.insert);
-  app.route('/khai/:id')
-  .get(khaiController.getById)
-  .put(khaiController.update)
-  .delete(khaiController.delete);
+  app
+    .route("/khai")
+    .get(khaiController.index)
+    .post(khaiController.insert);
+  app
+    .route("/khai/:id")
+    .get(khaiController.getById)
+    .put(khaiController.update)
+    .delete(khaiController.delete);
 
   // initial routing for aulianza params
   app

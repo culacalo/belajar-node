@@ -1,121 +1,157 @@
-const AulianzaModel = require('@aulianza/models');
+const AulianzaModel = require("@aulianza/models");
+const Validate = require("fastest-validator");
+const HttpStatus = require("http-status-codes");
 
 class AulianzaServices {
-    constructor(){ 
-        this.aulianzaModel = new AulianzaModel();
+  constructor() {
+    this.aulianzaModel = new AulianzaModel();
+    this.validator = new Validate();
+    this.schema = {
+      name: {
+        type: "string",
+        min: 3
+      },
+      age: {
+        type: "number",
+        positive: true,
+        integer: true,
+        optional: true
+      }
+    };
+  }
+
+  async index() {
+    return await this.aulianzaModel.index();
+  }
+
+  async getById(id) {
+    const data = await this.aulianzaModel.getById(id);
+
+    if (data.length > 0) {
+      return data;
     }
 
-    // index function 
-    async index(){
-        // initial data variable with index from model 
-        const data = await this.aulianzaModel.index();
-        // then return data 
-        return data;
+    return "Data tidak ditemukan";
+  }
+
+  async insert(data) {
+    const user = {
+      name: data.name,
+      age: data.age
+    };
+
+    const isFormValid = this.validator.validate(user, this.schema);
+    if (isFormValid !== true) {
+      return {
+        status: HttpStatus.BAD_REQUEST,
+        error: {
+          error_code: "FORM_VALIDATION",
+          message: isFormValid
+        }
+      };
     }
 
-    // getById function
-    async getById(id){
-        // initial data variable with getById from model 
-        const data = await this.aulianzaModel.getById(id);
-        // if lenght more than 0
-        if(data.length > 0){
-            // then return data 
-            return data;
+    const isDataValid = await this.dataValidation(user);
+    if (isDataValid !== true) {
+      return {
+        status: HttpStatus.BAD_REQUEST,
+        error: {
+          error_code: "DATA_VALIDATION",
+          message: isDataValid
         }
-        // else return data not found 
-        return "Data tidak ditemukan";
+      };
     }
 
-    // insert function 
-    async insert(data){
-        // initial user variable and data 
-        const user = {
-            name: data.name,
-            age: data.age
+    const userSave = await this.aulianzaModel.insert(user);
+    if (userSave.affectedRows === 0) {
+      return {
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: {
+          error_code: "INTERNAL_SERVER_ERROR",
+          message: "Internal Server Error"
         }
-        // initial userSave variable and insert data from user variable to model
-        const userSave = await this.aulianzaModel.insert(user);
-        // if no affectedRows at database 
-        if(userSave.affectedRows === 0){
-            // then return error status 
-            return {
-                status: 500
-            }
-        }
-        // else if insert data success or status code 200, then return data
-        return {
-            status: 200,
-            data: 'Data saved successfully'
-        }
+      };
     }
 
-    // update function, get data from userId and userData
-    async update(userId, userData){
-        // if userId not found or not initialized
-        if(!userId){
-            // then return error with status code 400 
-            return {
-                status: 400,
-                message: 'User ID required'
-            }
+    return {
+      status: HttpStatus.OK,
+      data: "Data saved successfully"
+    };
+  }
+
+  async dataValidation(data) {
+    const { name } = data;
+
+    const userWithName = await this.aulianzaModel.getUserByName(name);
+    console.log(userWithName);
+    if (userWithName.length > 0) {
+      return [
+        {
+          type: "string",
+          field: "name",
+          message: "The name already exist"
         }
-        // initial data variable 
-        const data = {};
-        // if userData object has key with name is name
-        if(userData.name){
-            data.name = userData.name
-        }
-        // if userData object has key with name is age
-        if(userData.age){
-            data.age = userData.age
-        }
-        // initial updateUser variable with value = return of update function from model 
-        const updateUser = await this.aulianzaModel.update(userId, data);
-        // if there is no affectedRows 
-        if(updateUser.affectedRows !== 1){
-            // then return error with status code 500, then return error message
-            return {
-                status: 500,
-                message: 'Internal Server Error'
-            }
-        }
-        // else if status success or status code 200, then return data
-        return {
-            status: 200,
-            data: 'Data updated successfully'
-        }
+      ];
+    }
+    return true;
+  }
+
+  async update(userId, userData) {
+    if (!userId) {
+      return {
+        status: 400,
+        message: "User ID required"
+      };
     }
 
-    // delete function 
-    async delete(userId){
-        // if userId not defined 
-        if(!userId){
-            // then return error message with status code 400 
-            return {
-                status: 400,
-                message: 'User ID required'
-            }
-        }
-        // initial data variable with "is_deleted" key and value "1"
-        const data = {
-            is_deleted: 1
-        }
-        // initial deleteUser variable with update value userId and data from model
-        const deleteUser = await this.aulianzaModel.update(userId, data);
-        // if no affectedRows 
-        if(deleteUser.affectedRows !== 1){
-            // then retutn error message with status code 500 
-            return {
-                status: 500,
-                message: 'Internal Server Error'
-            }
-        }
-        // else if success, send data with status code 200
-        return {
-            status: 200,
-            data: 'Data updated successfully'
-        }
+    const data = {};
+    if (userData.name) {
+      data.name = userData.name;
     }
+
+    if (userData.age) {
+      data.age = userData.age;
+    }
+
+    const updateUser = await this.aulianzaModel.update(userId, data);
+    if (updateUser.affectedRows !== 1) {
+      return {
+        status: 500,
+        message: "Internal Server Error"
+      };
+    }
+
+    return {
+      status: 200,
+      data: "Data updated successfully"
+    };
+  }
+
+  async delete(userId) {
+    if (!userId) {
+      return {
+        status: 400,
+        message: "User ID required"
+      };
+    }
+
+    const data = {
+      is_deleted: 1
+    };
+
+    const deleteUser = await this.aulianzaModel.update(userId, data);
+    if (deleteUser.affectedRows !== 1) {
+      return {
+        status: 500,
+        message: "Internal Server Error"
+      };
+    }
+
+    return {
+      status: 200,
+      data: "Data updated successfully"
+    };
+  }
 }
 
 module.exports = AulianzaServices;
