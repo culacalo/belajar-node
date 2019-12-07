@@ -20,9 +20,23 @@ class FahmiServices{
         }
     }
 
-    async index(){
-        const data = await this.fahmiModels.index();
-        return data;
+    async index(query){
+        const offset = query.offset || 0;
+        const limit = query.limit || 10;
+        const totalUser = await this.fahmiModels.getTotalUser();
+        const data = await this.fahmiModels.index(
+            offset,
+            limit
+        );
+
+        return {
+            data,
+            pagination: {
+                total_item: totalUser,
+                offset,
+                limit
+            }
+        };
     }
 
     async getById(id){
