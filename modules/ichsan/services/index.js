@@ -19,8 +19,39 @@ class IchsanService {
     };
   }
 
-  async index() {
-    return await this.ichsanModel.index();
+  async index(query) {
+    const offset = query.offset || 0;
+    const limit = query.limit || 10;
+    const maxAge = query.max_age;
+    const minAge = query.min_age;
+    const search = query.q;
+    const sortBy = query.sort_by;
+    const order = query.order;
+
+    const totalUser = await this.ichsanModel.getTotalUser(
+      minAge,
+      maxAge,
+      search
+    );
+
+    const userData = await this.ichsanModel.index(
+      offset,
+      limit,
+      maxAge,
+      minAge,
+      search,
+      sortBy,
+      order
+    );
+
+    return {
+      data: userData,
+      pagination: {
+        total_item: totalUser,
+        offset,
+        limit
+      }
+    };
   }
 
   async getById(id) {
