@@ -21,22 +21,24 @@ class KhairulService {
 
   async index(query){
     const params = {
-      offset : query.offset || 0,
-      limit : query.limit || 10,
-      minAge : query.min_age,
-      maxAge : query.max_age,
+      offset: query.offset || 0,
+      limit: query.limit || 10,
+      minAge: query.min_age,
+      maxAge: query.max_age,
+      search: query.q,
+      sortBy: query.sort_by || 'id',
+      order: query.order || 'DESC',
     }
 
     const total = await this.khairulModel.getTotalData(params);
-    console.log('total', total);
     const data = await this.khairulModel.index(params);
 
     return {
       data,
       pagination: {
         total,
-        offset,
-        limit,
+        offset: params.offset,
+        limit: params.limit,
       }
     }
   }

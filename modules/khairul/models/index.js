@@ -6,7 +6,7 @@ class KhairulModel{
     this.dbService = new DBService();
   }
 
-  async index({ offset, limit, minAge, maxAge }){
+  async index({ offset, limit, minAge, maxAge, search, sortBy, order }){
     let query = `SELECT * FROM ${this.table} WHERE is_deleted=0`;
 
     if (minAge) {
@@ -16,12 +16,20 @@ class KhairulModel{
     if (maxAge) {
       query += ` AND age <= ${maxAge}`
     }
+
+    if (search) {
+      query += ` AND name like '%${search}%'`;
+    }
+
+    if (sortBy) {
+      query += ` ORDER BY ${sortBy} ${order}`;
+    }
     
     query += ` LIMIT ${offset}, ${limit}`;
     return await this.dbService.query(query);
   }
 
-  async getTotalData({ offset, limit, minAge, maxAge }) {
+  async getTotalData({ minAge, maxAge, search }) {
     let query = `SELECT count(id) as total FROM ${this.table} WHERE is_deleted=0`;
 
     if (minAge) {
@@ -32,7 +40,9 @@ class KhairulModel{
       query += ` AND age <= ${maxAge}`;
     }
 
-    query += ` LIMIT ${offset}, ${limit}`;
+    if (search) {
+      query += ` AND name like '%${search}%'`;
+    }
 
     const result = await this.dbService.query(query);
     return result[0].total;
