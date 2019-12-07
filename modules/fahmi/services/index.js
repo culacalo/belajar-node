@@ -26,13 +26,17 @@ class FahmiServices{
         const minAge = query.min_age;
         const maxAge = query.max_age;
         const search = query.q;
+        const sortby = query.sort_by;
+        const order = query.order;
         const totalUser = await this.fahmiModels.getTotalUser(minAge, maxAge, search);
         const data = await this.fahmiModels.index(
             offset,
             limit,
             minAge,
             maxAge,
-            search
+            search,
+            sortby,
+            order
         );
 
         return {

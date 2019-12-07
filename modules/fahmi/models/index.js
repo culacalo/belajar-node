@@ -6,7 +6,7 @@ class FahmiModels{
         this.dbService = new DBService();
     }
 
-    async index(offset=0, limit=10, minAge, maxAge, search){
+    async index(offset=0, limit=10, minAge, maxAge, search, sortby='id', order='DESC'){
         let query = `select * from fahmi where is_deleted=0`;
         
         if (minAge) {
@@ -21,7 +21,7 @@ class FahmiModels{
             query += ` AND name like '%${search}%'`;
         }
         
-        query += ` limit ${offset}, ${limit}`;
+        query += ` order by ${sortby} ${order} limit ${offset}, ${limit}`;
         const data = await this.dbService.query(query);
         return data;
     }
