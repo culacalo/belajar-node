@@ -24,6 +24,7 @@ class ZakyModel{
 
     query += ` ORDER BY ${sort_by} ${order}
       LIMIT ${offset}, ${limit}`;
+      
     return await this.dbService.query(query);
   }
 
