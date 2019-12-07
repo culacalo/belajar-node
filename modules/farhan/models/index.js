@@ -6,7 +6,7 @@ class FarhanModel{
     this.dbService = new DBService()
   }
 
-  async index(offset = 0, limit = 10, minAge, maxAge, search, sort_by = 'id'){
+  async index(offset = 0, limit = 10, minAge, maxAge, search, sort_by = 'id', order = 'DESC'){
     // const query = `SELECT * FROM ${this.table} WHERE is_deleted=0`;
     let query = `SELECT * FROM ${this.table} WHERE is_deleted=0`;
 
@@ -22,7 +22,7 @@ class FarhanModel{
       query += ` AND name like '%${search}%'`
     }
 
-    query += ` ORDER BY ${sort_by} LIMIT ${offset}, ${limit}`
+    query += ` ORDER BY ${sort_by} ${order} LIMIT ${offset}, ${limit}`
     console.log(query)
     return await this.dbService.query(query)
   }
