@@ -25,7 +25,7 @@ class IchsanModel {
     }
 
     if (search) {
-      query += ` AND name like '%${search}%'`;
+      query += ` AND name LIKE '%${search}%'`;
     }
 
     query += ` ORDER BY ${sortBy} ${order}
@@ -46,7 +46,7 @@ class IchsanModel {
     }
 
     if (search) {
-      query += ` AND name like '%${search}%'`;
+      query += ` AND name LIKE '%${search}%'`;
     }
 
     const result = await this.db.query(query);
