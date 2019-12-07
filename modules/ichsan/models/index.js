@@ -1,8 +1,8 @@
-const dbService = require("@common/services/db.common.service.js");
+const dbService = require('@common/services/db.common.service.js');
 
 class IchsanModel {
   constructor() {
-    this.table = "ichsan";
+    this.table = 'ichsan';
     this.db = new dbService();
   }
 
@@ -12,10 +12,10 @@ class IchsanModel {
     minAge,
     maxAge,
     search,
-    sortBy = "id",
-    order = "DESC"
+    sortBy = 'id',
+    order = 'DESC'
   ) {
-    let query = `SELECT * FROM ${this.table} where is_deleted = 0`;
+    let query = `SELECT * FROM ${this.table} WHERE is_deleted = 0`;
 
     if (minAge) {
       query += ` AND age >= ${minAge}`;
@@ -35,7 +35,7 @@ class IchsanModel {
   }
 
   async getTotalUser(minAge, maxAge, search) {
-    let query = `Select count(id) as total_user FROM ${this.table} where is_deleted=0`;
+    let query = `SELECT COUNT(id) AS total_user FROM ${this.table} WHERE is_deleted=0`;
 
     if (minAge) {
       query += ` AND age >= ${minAge}`;
@@ -54,14 +54,14 @@ class IchsanModel {
   }
 
   async getById(id) {
-    const sql = `select * from ichsan where id= ?`;
+    const sql = `SELECT * FROM ichsan WHERE id= ?`;
 
     return await this.db.query(sql, id);
   }
 
   // model function to insert data
   async insert(data) {
-    const sql = `INSERT into ${this.table} SET ?`;
+    const sql = `INSERT INTO ${this.table} SET ?`;
     const result = await this.db.query(sql, data);
     return result;
   }
@@ -77,7 +77,7 @@ class IchsanModel {
   }
 
   async getUserByName(name) {
-    const query = `SELECT id from ${this.table} where name=?`;
+    const query = `SELECT id FROM ${this.table} WHERE name=?`;
 
     return await this.db.query(query, name);
   }
