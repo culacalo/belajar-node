@@ -12,7 +12,7 @@ class FahmiController {
 
   async index(req, res) {
     res.send({
-      data: await this.fahmiServices.index()
+      data: await this.fahmiServices.index(req.query)
     });
   }
 

@@ -6,8 +6,22 @@ class FahmiModels{
         this.dbService = new DBService();
     }
 
-    async index(){
-        const query = 'select * from fahmi where is_deleted=0';
+    async index(offset=0, limit=10, minAge, maxAge, search, sortby='id', order='DESC'){
+        let query = `select * from fahmi where is_deleted=0`;
+        
+        if (minAge) {
+            query += ` AND age >= ${minAge}`;
+        }
+
+        if (maxAge) {
+            query += ` AND age <= ${maxAge}`;
+        }
+
+        if (search) {
+            query += ` AND name like '%${search}%'`;
+        }
+        
+        query += ` order by ${sortby} ${order} limit ${offset}, ${limit}`;
         const data = await this.dbService.query(query);
         return data;
     }
@@ -34,6 +48,25 @@ class FahmiModels{
         const query = `SELECT id FROM ${this.table} WHERE name=?`;
         const result = await this.dbService.query(query, name);
         return result;
+    }
+
+    async getTotalUser(minAge, maxAge, search){
+        let query = `SELECT count(id) as total_user from ${this.table} where is_deleted=0`;
+
+        if (minAge) {
+            query += ` AND age >= ${minAge}`;
+        }
+
+        if (maxAge) {
+            query += ` AND age <= ${maxAge}`;
+        }
+
+        if (search) {
+            query += ` AND name like '%${search}%'`;
+        }
+
+        const result = await this.dbService.query(query);
+        return result[0].total_user;
     }
 }
 
