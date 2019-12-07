@@ -25,12 +25,16 @@ class AliServices{
         const maxAge = query.max_age;
         const minAge = query.min_age;
         const search = query.q;
+        const sortBy = query.sort_by;
+        const order = query.order;
         const userData = await this.aliModels.index(
             offset,
             limit,
             maxAge,
             minAge,
-            search
+            search,
+            sortBy,
+            order
         );
 
         const totalUser  = await this.aliModels.getTotalUser(maxAge, minAge, search);

@@ -5,7 +5,7 @@ class AliModel{
         this.table = 'AliTable';
     }
 
-    async index(offset= 0, limit=10, maxAge, minAge, search){
+    async index(offset= 0, limit=10, maxAge, minAge, search, sortBy = 'id', order = 'DESC'){
         let query = `SELECT * 
             FROM ${this.table} 
             WHERE is_deleted=0`;
@@ -18,7 +18,7 @@ class AliModel{
         if(search){
             query += ` AND name LIKE '%${search}%'`;
         }
-        query += ` LIMIT ${offset},${limit}`
+        query += ` ORDER BY ${sortBy} ${order} LIMIT ${offset},${limit}`
 
         return await this.dbService.query(query)
     }
