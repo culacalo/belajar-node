@@ -25,9 +25,16 @@ class FarhanService{
     const limit = query.limit || 10;
     const maxAge = query.max_age;
     const minAge = query.min_age;
+    const search = query.name;
 
-    const totalUser = await this.farhanModel.getTotalUser(minAge, maxAge)
-    const userData = await this.farhanModel.index(offset,limit, minAge, maxAge)
+    const totalUser = await this.farhanModel.getTotalUser(minAge, maxAge, search)
+    const userData = await this.farhanModel.index(
+    offset,
+    limit, 
+    minAge, 
+    maxAge,
+    search
+    );
 
 		// return await this.farhanModel.index()
     return {

@@ -6,7 +6,7 @@ class FarhanModel{
     this.dbService = new DBService()
   }
 
-  async index(offset = 0, limit = 10, minAge, maxAge){
+  async index(offset = 0, limit = 10, minAge, maxAge, search){
     // const query = `SELECT * FROM ${this.table} WHERE is_deleted=0`;
     let query = `SELECT * FROM ${this.table} WHERE is_deleted=0`;
 
@@ -18,12 +18,16 @@ class FarhanModel{
       query += ` AND age <= ${maxAge}`
     }
 
+    if(search){
+      query += ` AND name like '%${search}%'`
+    }
+
     query += ` LIMIT ${offset}, ${limit}`
     console.log(query)
     return await this.dbService.query(query)
   }
 
-  async getTotalUser(minAge, maxAge){
+  async getTotalUser(minAge, maxAge, search){
     let query = `select count(id) as total_user from ${this.table} where is_deleted=0`
    
     if(minAge){
@@ -33,7 +37,11 @@ class FarhanModel{
     if(maxAge){
       query += ` AND age <= ${maxAge}`
     }
-   
+    
+    if(search){
+      query += ` AND name like '%${search}%'`
+    }
+
     const result = await this.dbService.query(query)
     return result[0].total_user
   }
