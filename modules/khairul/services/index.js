@@ -20,10 +20,25 @@ class KhairulService {
   }
 
   async index(query){
-    const offset = query.offset || 0;
-    const limit = query.limit || 10;
+    const params = {
+      offset : query.offset || 0,
+      limit : query.limit || 10,
+      minAge : query.min_age,
+      maxAge : query.max_age,
+    }
 
-    return await this.khairulModel.index(offset, limit);
+    const total = await this.khairulModel.getTotalData(params);
+    console.log('total', total);
+    const data = await this.khairulModel.index(params);
+
+    return {
+      data,
+      pagination: {
+        total,
+        offset,
+        limit,
+      }
+    }
   }
 
   async getById(id){
