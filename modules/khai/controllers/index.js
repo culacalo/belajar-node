@@ -11,9 +11,8 @@ class KhaiController {
     }
 
     async index(req, res) {
-        res.send({
-            data: await this.khaiService.index()
-        });
+        const result = await this.khaiService.index(req.query);
+        res.send(result);
     }
 
     async getById(req, res){
@@ -25,16 +24,16 @@ class KhaiController {
     async insert(req, res){
         const saveUser = await this.khaiService.insert(req.body);
 
-        if(saveUser.status !== 200){
-            res.status(500);
+        res.status(saveUser.status);
+        
+        if(saveUser.status === 200){
             res.send({
-                message: 'Internal Server Error'
+                data: saveUser
             })
         }
 
-        res.status(200)
         res.send({
-            data: saveUser
+            error: saveUser.error
         })
     }
 
@@ -71,9 +70,7 @@ class KhaiController {
         res.send({
             message: deleteUser.message
         })
-
     }
-
 }
 
 module.exports = KhaiController;
