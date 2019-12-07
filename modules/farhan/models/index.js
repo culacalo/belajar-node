@@ -26,7 +26,7 @@ class FarhanModel {
     }
 
     if (search) {
-      query += ` AND name like '%${search}%'`;
+      query += ` AND name LIKE '%${search}%'`;
     }
 
     query += ` ORDER BY ${sort_by} ${order} LIMIT ${offset}, ${limit}`;
