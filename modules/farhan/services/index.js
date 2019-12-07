@@ -26,6 +26,7 @@ class FarhanService{
     const maxAge = query.max_age;
     const minAge = query.min_age;
     const search = query.name;
+    const sortBy = query.sort_by;
 
     const totalUser = await this.farhanModel.getTotalUser(minAge, maxAge, search)
     const userData = await this.farhanModel.index(
@@ -33,7 +34,8 @@ class FarhanService{
     limit, 
     minAge, 
     maxAge,
-    search
+    search,
+    sortBy
     );
 
 		// return await this.farhanModel.index()
