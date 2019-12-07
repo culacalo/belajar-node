@@ -12,8 +12,10 @@ class WanController {
     }
 
     async index(req, res) {
-        res.json({
-            data: await this.wanService.index()
+        const result = await this.wanService.index(req.query);
+
+        res.send({
+            result
         });
     }
 

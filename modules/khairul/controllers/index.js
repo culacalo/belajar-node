@@ -10,9 +10,9 @@ class KhairulController {
   }
 
   async index(req, res) {
-    res.send({
-      data: await this.khairulService.index()
-    });
+    const result = await this.khairulService.index(req.query);
+
+    res.send({ result });
   }
 
   async getById(req, res) {

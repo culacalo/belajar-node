@@ -19,8 +19,34 @@ class WanService {
         };
     }
 
-    async index() {
-        return await this.wanModel.index();
+    async index(query) {
+        const offset = parseInt(query.offset, 10) || 0;
+        const limit = parseInt(query.limit, 10) || 10;
+        const maxAge = query.max_age;
+        const minAge = query.min_age;
+        const searchQuery = query.q;
+        const sortBy = query.sort_by;
+        const sequence = query.sequence;
+
+        const totalUser = await this.wanModel.getTotalUser(minAge, maxAge, searchQuery);
+        const userData = await this.wanModel.index(
+            offset,
+            limit,
+            minAge,
+            maxAge,
+            searchQuery,
+            sortBy,
+            sequence
+        );
+
+        return {
+            data: userData,
+            pagination: {
+                total_item: totalUser,
+                offset,
+                limit
+            }
+        }
     }
 
     async getUserByID(id) {

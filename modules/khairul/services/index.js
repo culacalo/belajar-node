@@ -19,8 +19,28 @@ class KhairulService {
     }
   }
 
-  async index(){
-    return await this.khairulModel.index();
+  async index(query){
+    const params = {
+      offset: query.offset || 0,
+      limit: query.limit || 10,
+      minAge: query.min_age,
+      maxAge: query.max_age,
+      search: query.q,
+      sortBy: query.sort_by || 'id',
+      order: query.order || 'DESC',
+    }
+
+    const total = await this.khairulModel.getTotalData(params);
+    const data = await this.khairulModel.index(params);
+
+    return {
+      data,
+      pagination: {
+        total,
+        offset: params.offset,
+        limit: params.limit,
+      }
+    }
   }
 
   async getById(id){
