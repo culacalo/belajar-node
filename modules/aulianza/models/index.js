@@ -6,7 +6,15 @@ class AulianzaModel {
     this.dbService = new DBService();
   }
 
-  async index(offset = 0, limit = 10, minAge, maxAge, search) {
+  async index(
+    offset = 0,
+    limit = 10,
+    minAge,
+    maxAge,
+    search,
+    sort_by = "id",
+    order = "DESC"
+  ) {
     let query = `SELECT * 
       FROM ${this.table} 
       WHERE is_deleted = 0`;
@@ -23,7 +31,8 @@ class AulianzaModel {
       query += ` AND name LIKE '%${search}%'`;
     }
 
-    query += ` LIMIT ${offset}, ${limit}`;
+    query += ` ORDER BY ${sort_by} ${order} 
+      LIMIT ${offset}, ${limit}`;
     console.log(query);
     return await this.dbService.query(query);
   }

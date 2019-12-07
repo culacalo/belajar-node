@@ -26,6 +26,8 @@ class AulianzaServices {
     const minAge = query.min_age;
     const maxAge = query.max_age;
     const seacrh = query.q;
+    const sortBy = query.sort_by;
+    const order = query.order;
     const totalUser = await this.aulianzaModel.getTotalUser(
       minAge,
       maxAge,
@@ -36,7 +38,9 @@ class AulianzaServices {
       limit,
       minAge,
       maxAge,
-      seacrh
+      seacrh,
+      sortBy,
+      order
     );
 
     return {
