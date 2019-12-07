@@ -6,9 +6,19 @@ class FarhanModel{
     this.dbService = new DBService()
   }
 
-  async index(){
-    const query = `SELECT * FROM ${this.table} WHERE is_deleted=0`;
+  async index(offset = 0, limit = 10){
+    // const query = `SELECT * FROM ${this.table} WHERE is_deleted=0`;
+    let query = `SELECT * FROM ${this.table} WHERE is_deleted=0`;
+
+    query += ` LIMIT ${offset}, ${limit}`
+    console.log(query)
     return await this.dbService.query(query)
+  }
+
+  async getTotalUser(){
+    let query = `select count(id) as total_user from ${this.table} where is_deleted=0`
+    const result = await this.dbService.query(query)
+    return result[0].total_user
   }
 
   async getByID(id){

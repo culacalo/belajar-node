@@ -11,9 +11,10 @@ class FarhanController{
   }
 
   async index(req, res){
-    res.send({
-      data: await this.farhanService.index()
-    });
+    const result = await this.farhanService.index(req.query)
+    res.send(
+      result 
+    );
   }
 
   async getByID(req, res){

@@ -20,9 +20,23 @@ class FarhanService{
 		};
 	}
 
-	async index(){
-		return await this.farhanModel.index()
-	}
+	async index(query){
+    const offset = query.offset || 0;
+    const limit = query.limit || 10;
+
+    const totalUser = await this.farhanModel.getTotalUser()
+    const userData = await this.farhanModel.index(offset,limit)
+
+		// return await this.farhanModel.index()
+    return {
+      data: userData,
+      pagination: {
+        total_user: totalUser,
+        offset,
+        limit
+      }
+    }
+  }
 
 	async getByID(id){
 		const data = await this.farhanModel.getByID(id)
