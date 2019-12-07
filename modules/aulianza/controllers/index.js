@@ -11,8 +11,9 @@ class AulianzaController {
   }
 
   async index(req, res) {
+    const result = await this.aulianzaService.index(req.query);
     res.send({
-      data: await this.aulianzaService.index()
+      result
     });
   }
 

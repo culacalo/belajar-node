@@ -20,8 +20,20 @@ class AulianzaServices {
     };
   }
 
-  async index() {
-    return await this.aulianzaModel.index();
+  async index(query) {
+    const offset = query.offset || 0;
+    const limit = query.limit || 10;
+    const totalUser = await this.aulianzaModel.getTotalUser();
+    const userData = await this.aulianzaModel.index(offset, limit);
+
+    return {
+      data: userData,
+      pagination: {
+        total_item: totalUser,
+        offset,
+        limit
+      }
+    };
   }
 
   async getById(id) {
