@@ -20,7 +20,7 @@ class KhaiModel{
             }
 
             if(search){
-                query += ` AND name like '%${search}%'`;
+                query += ` AND name LIKE '%${search}%'`;
             }
 
             query += ` ORDER BY ${sort_by} ${order}
@@ -42,7 +42,7 @@ class KhaiModel{
         }
 
         if(search){
-            query += ` AND name like '%${search}%'`;
+            query += ` AND name LIKE '%${search}%'`;
         }
 
         const result = await this.dbService.query(query);

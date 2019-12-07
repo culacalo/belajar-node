@@ -38,7 +38,7 @@ class KhaiService {
            maxAge,
            search,
            sortBy,
-           order
+           order,
        );
 
        return {
@@ -46,7 +46,7 @@ class KhaiService {
            pagination: {
                total_item: totalUser,
                offset,
-               limit
+               limit,
            }
        }
     }

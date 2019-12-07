@@ -12,9 +12,7 @@ class KhaiController {
 
     async index(req, res) {
         const result = await this.khaiService.index(req.query);
-        res.send(
-            result
-        );
+        res.send(result);
     }
 
     async getById(req, res){
