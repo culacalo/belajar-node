@@ -24,14 +24,16 @@ class AliServices{
         const limit = query.limit;
         const maxAge = query.max_age;
         const minAge = query.min_age;
+        const search = query.q;
         const userData = await this.aliModels.index(
             offset,
             limit,
             maxAge,
-            minAge
+            minAge,
+            search
         );
 
-        const totalUser  = await this.aliModels.getTotalUser(maxAge, minAge);
+        const totalUser  = await this.aliModels.getTotalUser(maxAge, minAge, search);
 
         return {
             data: userData,

@@ -5,7 +5,7 @@ class AliModel{
         this.table = 'AliTable';
     }
 
-    async index(offset= 0, limit=10, maxAge, minAge){
+    async index(offset= 0, limit=10, maxAge, minAge, search){
         let query = `SELECT * 
             FROM ${this.table} 
             WHERE is_deleted=0`;
@@ -15,12 +15,15 @@ class AliModel{
         if(minAge){
             query += ` AND age >=${minAge}`;
         }
+        if(search){
+            query += ` AND name LIKE '%${search}%'`;
+        }
         query += ` LIMIT ${offset},${limit}`
 
         return await this.dbService.query(query)
     }
 
-    async getTotalUser(maxAge, minAge){
+    async getTotalUser(maxAge, minAge, search){
         let query = `SELECT count(id) as total_user 
             FROM ${this.table} 
             WHERE is_deleted=0`;
@@ -32,6 +35,9 @@ class AliModel{
             query += ` AND age >=${minAge}`;
         }
 
+        if(search){
+            query += ` AND name LIKE '%${search}%'`;
+        }
         const result = await this.dbService.query(query) 
         return result[0].total_user
 
