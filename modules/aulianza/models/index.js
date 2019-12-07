@@ -6,7 +6,7 @@ class AulianzaModel {
     this.dbService = new DBService();
   }
 
-  async index(offset = 0, limit = 10, minAge, maxAge) {
+  async index(offset = 0, limit = 10, minAge, maxAge, search) {
     let query = `SELECT * 
       FROM ${this.table} 
       WHERE is_deleted = 0`;
@@ -19,12 +19,16 @@ class AulianzaModel {
       query += ` AND age <= ${maxAge}`;
     }
 
+    if (search) {
+      query += ` AND name LIKE '%${search}%'`;
+    }
+
     query += ` LIMIT ${offset}, ${limit}`;
     console.log(query);
     return await this.dbService.query(query);
   }
 
-  async getTotalUser(minAge, maxAge) {
+  async getTotalUser(minAge, maxAge, search) {
     let query = `SELECT COUNT(id) AS total_user FROM ${this.table} WHERE is_deleted=0`;
 
     if (minAge) {
@@ -33,6 +37,10 @@ class AulianzaModel {
 
     if (maxAge) {
       query += ` AND age <= ${maxAge}`;
+    }
+
+    if (search) {
+      query += ` AND name LIKE '%${search}%'`;
     }
 
     console.log("getTotalUser : " + query);

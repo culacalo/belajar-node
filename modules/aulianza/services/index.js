@@ -25,12 +25,18 @@ class AulianzaServices {
     const limit = query.limit || 10;
     const minAge = query.min_age;
     const maxAge = query.max_age;
-    const totalUser = await this.aulianzaModel.getTotalUser(minAge, maxAge);
+    const seacrh = query.q;
+    const totalUser = await this.aulianzaModel.getTotalUser(
+      minAge,
+      maxAge,
+      seacrh
+    );
     const userData = await this.aulianzaModel.index(
       offset,
       limit,
       minAge,
-      maxAge
+      maxAge,
+      seacrh
     );
 
     return {
