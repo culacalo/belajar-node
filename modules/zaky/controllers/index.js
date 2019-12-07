@@ -11,9 +11,13 @@ class ZakyController {
   }
 
   async index(req, res) {
-    res.send({
-      data: await this.zakyService.index()
-    });
+    const offset = req.query.offset || 0;
+    const limit = req.query.limit || 10;
+
+    const result = await this.zakyService.index(offset, limit);
+    res.send(
+      result
+    );
   }
 
   async getById(req, res){

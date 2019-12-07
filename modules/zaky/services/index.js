@@ -20,8 +20,18 @@ class ZakyService {
     }
   }
 
-  async index(){
-    return await this.zakyModel.index();
+  async index(offset = 0, limit = 10){
+    const totalUser = await this.zakyModel.getTotalUser();
+    const userData = await this.zakyModel.index(offset, limit);
+
+    return {
+      data: userData,
+      pagination: {
+        total_item: totalUser,
+        offset,
+        limit
+      }
+    }
   }
 
   async getById(id){
