@@ -28,15 +28,15 @@ class FarhanService{
 		const data = await this.farhanModel.getByID(id)
 
 		if(data.length > 0){
-				return data
+      return data
 		}
 		return "data kosong"
 	}
 
 	async insert(data){
 		const farhan = {
-				name: data.name,
-				age: data.age
+      name: data.name,
+      age: data.age
 		}
 
 		const isFormValid = this.validator.validate(farhan, this.schema)
@@ -52,13 +52,13 @@ class FarhanService{
 
 		const isDataValid = await this.dataValidation(farhan)
 		if(isDataValid !== true){
-				return {
-						status: HttpStatus.BAD_REQUEST,
-						error: {
-							error_code: 'DATA_VALIDATION',
-							message: isDataValid
-						}
-				};
+      return {
+        status: HttpStatus.BAD_REQUEST,
+        error: {
+          error_code: 'DATA_VALIDATION',
+          message: isDataValid
+        }
+      };
 		}
 
 		const userInsert = await this.farhanModel.insert(farhan);
@@ -67,8 +67,8 @@ class FarhanService{
 			return {
 				status: HttpStatus.INTERNAL_SERVER_ERROR,
 				error: {
-						error_code: 'INTERNAL_SERVER_ERROR',
-						message : 'Internal Server Error'
+          error_code: 'INTERNAL_SERVER_ERROR',
+          message : 'Internal Server Error'
 				}
 			}
 		}
@@ -85,9 +85,9 @@ class FarhanService{
 		if(userWithName.length > 0){
 			return [
 				{
-						type: "string",
-						field: "name",
-						message: "Name already exist"
+          type: "string",
+          field: "name",
+          message: "Name already exist"
 				}
 			];
 		}
@@ -96,59 +96,59 @@ class FarhanService{
 
 	async update(userId, userData){
 		if(!userId){
-				return {
-						status: 400,
-						message: 'user id required'
-				}
+      return {
+        status: 400,
+        message: 'user id required'
+      }
 		}
 
 		const data = {};
 		if(userData.name){
-				data.name = userData.name;
+      data.name = userData.name;
 		}
 
 		if(userData.age){
-				data.age = userData.age
+      data.age = userData.age
 		}
 
 		const updateUser = await this.farhanModel.update(userId, data)
 		if(updateUser.affectedRows === 1){
-				return {
-						status: 200,
-						data: 'data updated'
-				}
+      return {
+          status: 200,
+          data: 'data updated'
+      }
 		}
 
 		return {
-				status:500,
-				message: 'Internal Server Error'
+      status:500,
+      message: 'Internal Server Error'
 		}
 	}
 
 	async delete(userId){
-			if(!userId){
-					return {
-							status: 400,
-							message: 'user id required'
-					}
-			}
-	
-			const data = {
-					is_deleted: 1
-			}
-	
-			const deleteUser = await this.farhanModel.update(userId, data);
-			if(deleteUser.affectedRows !== 1){
-					return {
-					status: 500,
-					message: 'Internal Server Error'
-					}   
-			}
-	
-			return {
-					status: 200,
-					data: 'data updated'
-			}
+    if(!userId){
+      return {
+          status: 400,
+          message: 'user id required'
+      }
+    }
+
+    const data = {
+      is_deleted: 1
+    }
+
+    const deleteUser = await this.farhanModel.update(userId, data);
+    if(deleteUser.affectedRows !== 1){
+      return {
+        status: 500,
+        message: 'Internal Server Error'
+      }   
+    }
+
+    return {
+      status: 200,
+      data: 'data updated'
+    }
 	}
 }
 
