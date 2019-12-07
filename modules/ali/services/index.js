@@ -22,12 +22,16 @@ class AliServices{
     async index(query){
         const offset = query.offset;
         const limit = query.limit;
+        const maxAge = query.max_age;
+        const minAge = query.min_age;
         const userData = await this.aliModels.index(
             offset,
             limit,
+            maxAge,
+            minAge
         );
 
-        const totalUser  = await this.aliModels.getTotalUser();
+        const totalUser  = await this.aliModels.getTotalUser(maxAge, minAge);
 
         return {
             data: userData,
