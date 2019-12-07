@@ -11,9 +11,10 @@ class ZakyController {
   }
 
   async index(req, res) {
-    res.send({
-      data: await this.zakyService.index()
-    });
+    const result = await this.zakyService.index(req.query);
+    res.send(
+      result
+    );
   }
 
   async getById(req, res){
