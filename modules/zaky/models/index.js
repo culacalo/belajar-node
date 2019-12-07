@@ -6,7 +6,7 @@ class ZakyModel{
     this.dbService = new DBService();
   }
 
-  async index(offset = 0, limit = 10, minAge, maxAge, search){
+  async index(offset = 0, limit = 10, minAge, maxAge, search, sort_by = 'id', order = 'DESC'){
     let query = `SELECT * 
       FROM ${this.table} 
       WHERE is_deleted=0`;
@@ -22,7 +22,8 @@ class ZakyModel{
       query += ` AND name like '%${search}%'`;
     }
 
-    query += ` LIMIT ${offset}, ${limit}`;
+    query += ` ORDER BY ${sort_by} ${order}
+      LIMIT ${offset}, ${limit}`;
     return await this.dbService.query(query);
   }
 
