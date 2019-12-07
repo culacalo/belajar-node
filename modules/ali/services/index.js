@@ -34,7 +34,7 @@ class AliServices{
             minAge,
             search,
             sortBy,
-            order
+            order,
         );
 
         const totalUser  = await this.aliModels.getTotalUser(maxAge, minAge, search);
@@ -44,7 +44,7 @@ class AliServices{
             pagination: {
                 total_item: totalUser,
                 limit,
-                offset
+                offset,
             }
         }
     }
