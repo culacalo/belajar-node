@@ -33,7 +33,6 @@ class AulianzaModel {
 
     query += ` ORDER BY ${sort_by} ${order} 
       LIMIT ${offset}, ${limit}`;
-    console.log(query);
     return await this.dbService.query(query);
   }
 
@@ -52,7 +51,6 @@ class AulianzaModel {
       query += ` AND name LIKE '%${search}%'`;
     }
 
-    console.log("getTotalUser : " + query);
     const result = await this.dbService.query(query);
     return result[0].total_user;
   }
