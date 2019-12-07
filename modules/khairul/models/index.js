@@ -6,8 +6,8 @@ class KhairulModel{
     this.dbService = new DBService();
   }
 
-  async index(){
-    const query = `SELECT * FROM ${this.table} WHERE is_deleted=0`;
+  async index(offset = 0, limit = 10){
+    const query = `SELECT * FROM ${this.table} WHERE is_deleted=0 LIMIT ${offset}, ${limit}`;
     return await this.dbService.query(query);
   }
 

@@ -19,8 +19,11 @@ class KhairulService {
     }
   }
 
-  async index(){
-    return await this.khairulModel.index();
+  async index(query){
+    const offset = query.offset || 0;
+    const limit = query.limit || 10;
+
+    return await this.khairulModel.index(offset, limit);
   }
 
   async getById(id){
