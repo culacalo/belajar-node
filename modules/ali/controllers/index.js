@@ -10,9 +10,7 @@ class AliController{
     }
     async index(req,res){
         const result = await this.aliServices.index(req.query);
-        res.send(
-            result
-        );
+        res.send(result);
     }
 
     async getById(req,res){
