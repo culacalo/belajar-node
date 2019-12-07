@@ -6,18 +6,36 @@ class AulianzaModel {
     this.dbService = new DBService();
   }
 
-  async index(offset = 0, limit = 10) {
+  async index(offset = 0, limit = 10, minAge, maxAge) {
     let query = `SELECT * 
       FROM ${this.table} 
-      WHERE is_deleted = 0
-      LIMIT ${offset}, ${limit}`;
+      WHERE is_deleted = 0`;
 
+    if (minAge) {
+      query += ` AND age >= ${minAge}`;
+    }
+
+    if (maxAge) {
+      query += ` AND age <= ${maxAge}`;
+    }
+
+    query += ` LIMIT ${offset}, ${limit}`;
+    console.log(query);
     return await this.dbService.query(query);
   }
 
-  async getTotalUser() {
+  async getTotalUser(minAge, maxAge) {
     let query = `SELECT COUNT(id) AS total_user FROM ${this.table} WHERE is_deleted=0`;
 
+    if (minAge) {
+      query += ` AND age >= ${minAge}`;
+    }
+
+    if (maxAge) {
+      query += ` AND age <= ${maxAge}`;
+    }
+
+    console.log("getTotalUser : " + query);
     const result = await this.dbService.query(query);
     return result[0].total_user;
   }

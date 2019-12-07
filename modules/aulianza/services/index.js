@@ -23,8 +23,15 @@ class AulianzaServices {
   async index(query) {
     const offset = query.offset || 0;
     const limit = query.limit || 10;
-    const totalUser = await this.aulianzaModel.getTotalUser();
-    const userData = await this.aulianzaModel.index(offset, limit);
+    const minAge = query.min_age;
+    const maxAge = query.max_age;
+    const totalUser = await this.aulianzaModel.getTotalUser(minAge, maxAge);
+    const userData = await this.aulianzaModel.index(
+      offset,
+      limit,
+      minAge,
+      maxAge
+    );
 
     return {
       data: userData,
