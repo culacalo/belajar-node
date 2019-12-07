@@ -25,8 +25,9 @@ class ZakyService {
     const limit = query.limit || 10;
     const maxAge = query.max_age;
     const minAge = query.min_age;
-    const totalUser = await this.zakyModel.getTotalUser(minAge, maxAge);
-    const userData = await this.zakyModel.index(offset, limit, minAge, maxAge);
+    const search = query.q;
+    const totalUser = await this.zakyModel.getTotalUser(minAge, maxAge, search);
+    const userData = await this.zakyModel.index(offset, limit, minAge, maxAge, search);
 
     return {
       data: userData,
