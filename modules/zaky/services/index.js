@@ -20,8 +20,33 @@ class ZakyService {
     }
   }
 
-  async index(){
-    return await this.zakyModel.index();
+  async index(query){
+    const offset = query.offset || 0;
+    const limit = query.limit || 10;
+    const maxAge = query.max_age;
+    const minAge = query.min_age;
+    const search = query.q;
+    const sortBy = query.sort_by;
+    const order = query.order;
+    const totalUser = await this.zakyModel.getTotalUser(minAge, maxAge, search);
+    const userData = await this.zakyModel.index(
+      offset, 
+      limit, 
+      minAge, 
+      maxAge, 
+      search, 
+      sortBy, 
+      order
+    );
+
+    return {
+      data: userData,
+      pagination: {
+        total_item: totalUser,
+        offset,
+        limit
+      }
+    }
   }
 
   async getById(id){

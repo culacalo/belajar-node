@@ -24,6 +24,11 @@ class AliModel{
         const query = `UPDATE ${this.table} SET ? WHERE id = ?`
         return await this.dbService.query(query,[data,id])
     }
+
+    async getUserByName(name){
+        const query = `SELECT id FROM ${this.table} WHERE name = ?`
+        return await this.dbService.query(query,name)
+    }
 }
 
 module.exports = AliModel;
