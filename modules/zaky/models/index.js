@@ -6,9 +6,44 @@ class ZakyModel{
     this.dbService = new DBService();
   }
 
-  async index(){
-    const query = `SELECT * FROM ${this.table} WHERE is_deleted=0`;
+  async index(offset = 0, limit = 10, minAge, maxAge, search, sort_by = 'id', order = 'DESC'){
+    let query = `SELECT * 
+      FROM ${this.table} 
+      WHERE is_deleted=0`;
+    if(minAge){
+      query += ` AND age >= ${minAge}`;
+    }
+
+    if(maxAge){
+      query += ` AND age <= ${maxAge}`;
+    }
+
+    if(search){
+      query += ` AND name like '%${search}%'`;
+    }
+
+    query += ` ORDER BY ${sort_by} ${order}
+      LIMIT ${offset}, ${limit}`;
     return await this.dbService.query(query);
+  }
+
+  async getTotalUser(minAge, maxAge, search){
+    let query = `Select count(id) as total_user FROM ${this.table} where is_deleted=0`;
+
+    if(minAge){
+      query += ` AND age >= ${minAge}`;
+    }
+
+    if(maxAge){
+      query += ` AND age <= ${maxAge}`;
+    }
+
+    if(search){
+      query += ` AND name like '%${search}%'`;
+    }
+
+    const result = await this.dbService.query(query);
+    return result[0].total_user;
   }
 
   async getById(id){
