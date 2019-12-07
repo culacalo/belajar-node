@@ -6,9 +6,46 @@ class KhairulModel{
     this.dbService = new DBService();
   }
 
-  async index(){
-    const query = `SELECT * FROM ${this.table} WHERE is_deleted=0`;
+  async index({ offset, limit, minAge, maxAge, search, sortBy, order }){
+    let query = `SELECT * FROM ${this.table} WHERE is_deleted=0`;
+
+    if (minAge) {
+      query += ` AND age >= ${minAge}`;
+    }
+
+    if (maxAge) {
+      query += ` AND age <= ${maxAge}`
+    }
+
+    if (search) {
+      query += ` AND name like '%${search}%'`;
+    }
+
+    if (sortBy) {
+      query += ` ORDER BY ${sortBy} ${order}`;
+    }
+    
+    query += ` LIMIT ${offset}, ${limit}`;
     return await this.dbService.query(query);
+  }
+
+  async getTotalData({ minAge, maxAge, search }) {
+    let query = `SELECT count(id) as total FROM ${this.table} WHERE is_deleted=0`;
+
+    if (minAge) {
+      query += ` AND age >= ${minAge}`;
+    }
+
+    if (maxAge) {
+      query += ` AND age <= ${maxAge}`;
+    }
+
+    if (search) {
+      query += ` AND name like '%${search}%'`;
+    }
+
+    const result = await this.dbService.query(query);
+    return result[0].total;
   }
 
   async getById(id){
