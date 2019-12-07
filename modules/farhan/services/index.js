@@ -23,9 +23,11 @@ class FarhanService{
 	async index(query){
     const offset = query.offset || 0;
     const limit = query.limit || 10;
+    const maxAge = query.max_age;
+    const minAge = query.min_age;
 
-    const totalUser = await this.farhanModel.getTotalUser()
-    const userData = await this.farhanModel.index(offset,limit)
+    const totalUser = await this.farhanModel.getTotalUser(minAge, maxAge)
+    const userData = await this.farhanModel.index(offset,limit, minAge, maxAge)
 
 		// return await this.farhanModel.index()
     return {
