@@ -34,7 +34,7 @@ class FarhanController{
 
         res.status(500)
         res.send({
-            message: 'Internal Server Error'
+            error: insertUser.error
         })
     }
 

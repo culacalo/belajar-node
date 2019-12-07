@@ -16,6 +16,12 @@ class FarhanModel{
         return await this.dbService.query(query, id)
     }
 
+    async getUserByName(name){
+        const query = `SELECT id FROM ${this.table} WHERE name=?`
+        const result = await this.dbService.query(query, name)
+        return result
+    }
+
     async insert(data){
         const query = `INSERT INTO ${this.table} set ?`;
         const result = await this.dbService.query(query, data)
