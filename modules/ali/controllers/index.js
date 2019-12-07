@@ -9,9 +9,10 @@ class AliController{
         this.deleteUser = this.deleteUser.bind(this)
     }
     async index(req,res){
-        res.send({
-            data: await this.aliServices.index()
-        })
+        const result = await this.aliServices.index(req.query);
+        res.send(
+            result
+        );
     }
 
     async getById(req,res){

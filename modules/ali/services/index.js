@@ -19,8 +19,24 @@ class AliServices{
         }
     }
 
-    async index(){
-        return await this.aliModels.index()
+    async index(query){
+        const offset = query.offset;
+        const limit = query.limit;
+        const userData = await this.aliModels.index(
+            offset,
+            limit,
+        );
+
+        const totalUser  = await this.aliModels.getTotalUser();
+
+        return {
+            data: userData,
+            pagination: {
+                total_item: totalUser,
+                limit,
+                offset
+            }
+        }
     }
     async getById(id){
         const data = await this.aliModels.getById(id)
