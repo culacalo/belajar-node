@@ -20,8 +20,37 @@ class AulianzaServices {
     };
   }
 
-  async index() {
-    return await this.aulianzaModel.index();
+  async index(query) {
+    const offset = query.offset || 0;
+    const limit = query.limit || 10;
+    const minAge = query.min_age;
+    const maxAge = query.max_age;
+    const seacrh = query.q;
+    const sortBy = query.sort_by;
+    const order = query.order;
+    const totalUser = await this.aulianzaModel.getTotalUser(
+      minAge,
+      maxAge,
+      seacrh
+    );
+    const userData = await this.aulianzaModel.index(
+      offset,
+      limit,
+      minAge,
+      maxAge,
+      seacrh,
+      sortBy,
+      order
+    );
+
+    return {
+      data: userData,
+      pagination: {
+        total_item: totalUser,
+        offset,
+        limit
+      }
+    };
   }
 
   async getById(id) {

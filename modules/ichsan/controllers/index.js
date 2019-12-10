@@ -11,8 +11,9 @@ class IchsanController {
   }
 
   async index(req, res) {
+    const result = await this.ichsanService.index(req.query);
     res.send({
-      data: await this.ichsanService.index()
+      result
     });
   }
 

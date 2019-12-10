@@ -20,9 +20,33 @@ class FahmiServices{
         }
     }
 
-    async index(){
-        const data = await this.fahmiModels.index();
-        return data;
+    async index(query){
+        const offset = query.offset || 0;
+        const limit = query.limit || 10;
+        const minAge = query.min_age;
+        const maxAge = query.max_age;
+        const search = query.q;
+        const sortby = query.sort_by;
+        const order = query.order;
+        const totalUser = await this.fahmiModels.getTotalUser(minAge, maxAge, search);
+        const data = await this.fahmiModels.index(
+            offset,
+            limit,
+            minAge,
+            maxAge,
+            search,
+            sortby,
+            order
+        );
+
+        return {
+            data,
+            pagination: {
+                total_item: totalUser,
+                offset,
+                limit
+            }
+        };
     }
 
     async getById(id){
