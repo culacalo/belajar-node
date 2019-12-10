@@ -3,6 +3,9 @@
 - Install Node.js & NPM (https://nodejs.org/en/).
 - Install Yarn (if you prefer this instead of NPM) (https://yarnpkg.com/en/).
 - Install `nodemon` (https://www.npmjs.com/package/nodemon).
+- Copy all git hooks scripts to `.git/hooks` directory.
+
+  `cp -r .githooks/* .git/hooks`
 
 ## Usage without Docker
 

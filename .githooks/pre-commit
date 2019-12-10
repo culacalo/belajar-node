@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# Get last commit hash number
+if git rev-parse --verify HEAD >/dev/null 2>&1
+then
+	against=HEAD
+else
+	# Initial commit: diff against an empty tree object
+	against=$(git hash-object -t tree /dev/null)
+fi
+
+# Non-allowed keywords
+# Will reject console.log & conflicting files
+RESTRICTED="console.log\|<<<<<<<|=======|>>>>>>>"
+
+# Get all staged files & read it
+git diff-index --name-status --cached $against -- | cut -c3- | while read FILE; do
+
+if [[ -f $FILE ]]; then
+	if grep -w $RESTRICTED $FILE;
+	then
+		echo $FILE 'contains conflict or console.log. Please revise it!'
+		exit 1
+	fi
+fi
+
+done || exit $?
