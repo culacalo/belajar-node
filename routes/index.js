@@ -10,6 +10,9 @@ const KhairulController = require("@khairul/controllers");
 const AliController = require("@ali/controllers");
 const AulianzaController = require("@aulianza/controllers");
 const KhaiController = require("@khai/controllers");
+const LoginController = require("@login/controllers");
+require('@login/middlewares');
+const passport = require('passport')
 
 module.exports = app => {
   const zakyController = new ZakyController();
@@ -22,17 +25,28 @@ module.exports = app => {
   const aliController = new AliController();
   const aulianzaController = new AulianzaController();
   const khaiController = new KhaiController();
+  const loginController = new LoginController();
 
   userRoute(app);
 
   app.route("/").get((req, res) => {
     res.send("Hi Apa Aceh, pastikan lagi asdf!");
   });
+ 
+  app.route("/login")
+    .post(loginController.login);
 
-  app
-    .route("/zaky")
-    .get(zakyController.index)
-    .post(zakyController.insert);
+  app.group('/zaky', (router) => {
+    router.use(passport.authenticate('jwt', { session: false }));
+
+    router.route('/')
+      .get(zakyController.index)
+      .post(zakyController.insert);
+  })
+  // app
+  //   .route("/zaky")
+  //   .get(zakyController.index)
+  //   .post(zakyController.insert);
   app
     .route("/zaky/:id")
     .get(zakyController.getById)
