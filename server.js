@@ -1,4 +1,5 @@
 require('module-alias/register');
+require('express-group-routes');
 
 const express = require('express');
 const pino = require('express-pino-logger');

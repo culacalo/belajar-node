@@ -7,10 +7,12 @@ module.exports = {
           id: {
             type: Sequelize.INTEGER(11),
             primaryKey: true,
-            autoIncrement: true
+            autoIncrement: true,
           },
           name: Sequelize.STRING(225),
-          age: Sequelize.INTEGER(3)
+          age: Sequelize.INTEGER(3),
+          email: Sequelize.STRING(100),
+          password: Sequelize.STRING(100)
         });
   },
 

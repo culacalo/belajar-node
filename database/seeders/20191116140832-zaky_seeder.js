@@ -5,11 +5,15 @@ module.exports = {
       return queryInterface.bulkInsert('users', [
         {
           name: 'zaky',
-          age: 17
+          age: 17,
+          email: 'zaky@gmail.com',
+          password: '1234'
         },
         {
           name: 'andrew',
-          age: 62
+          age: 62,
+          email: 'saidandrew@gmail.com',
+          password: 'wakyedforever'
         }
       ], {});
   },
